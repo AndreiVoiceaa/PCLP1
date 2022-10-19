@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1665918417 source:c:\users\andrei voicea\onedrive\desktop\proiect\joc\main.cpp
+	<iostream>
+	<windows.h>
+
