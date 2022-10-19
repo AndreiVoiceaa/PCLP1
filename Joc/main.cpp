@@ -56,7 +56,8 @@ void FullScreen()
 void Combat()
 {
 
-  //test git
+
+
 
 }
 
@@ -71,6 +72,10 @@ void Start()
 
 int main()
 {
+
+    //nume1
+    //nume2
+    //nume3
 
     Start();
 
