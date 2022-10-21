@@ -4,17 +4,57 @@
 using namespace std;
 
 
+/*
+ Item id list :
+
+ 1. Sabia (Stats)
+ 2.
+ 3.
+ .....
+
+
+*/
+
+/*
+ Perk id list :
+
+ 1. ArmorBoost (effect)
+ 2.
+ 3.
+ .....
+
+
+*/
+
+
 
 struct stats
 {
   int health = 100;
   int damage = 1;
   int armor  = 0;
+
+   struct
+   {
+     int coins = 0;
+     int experience = 0;
+     int itemId = 0;
+
+
+   }drop;
+
   //noroc (critical hits , evasion)
 
 }PlayerStats,EnemyStats;
 
+void Perks()
+{
+    //Daca nivelul este 1 primeste perk-ul a(+descriere) / alege dintre perk-ul a si b (+descriere la fiecare)
+    //Probabil afisam un vector cu integeri care rep perk-urile . Dupa alegerea unui perk se sterge din acesta indicele si se adauga in altul
+    //iar la cresterea in nivel se adauga elemente in vector .
 
+
+}
 
 void Plot(int chapter)
 {
@@ -30,6 +70,15 @@ void Plot(int chapter)
 
     }
     */
+
+}
+
+
+void Inventory()
+{
+
+    //vector cu itemele stocate
+
 
 }
 
@@ -53,9 +102,15 @@ void FullScreen()
 }
 
 
-void Combat()
+int Combat(int damageAttacker , int armorDefender) //+alti factori posibili care modifica damage-ul
 {
 
+
+   return damageAttacker;
+}
+
+void Shop()
+{
 
 
 
