@@ -1,5 +1,6 @@
 #include <iostream>
 #include <windows.h>
+#include <mmsystem.h>
 
 using namespace std;
 
@@ -121,18 +122,23 @@ void Start()
 
    FullScreen();
 
-
+   PlaySound(TEXT("MainMusic.wav") , NULL , SND_FILENAME | SND_ASYNC | SND_LOOP);
+   //Funcția PlaySound redă un sunet specificat de numele fișierului, resursa sau evenimentul de sistem dat.
+   //TEXT Identifică un șir ca Unicode atunci când UNICODE este definit de o directivă de preprocesor în timpul compilării.
+   //În caz contrar, macro-ul identifică un șir ca șir ANSI. Unicode este formatul standard de facto de codificare și interpretare
+   //a datelor binare în format text, având drept țel final să cuprindă toate caracterele din toate limbile globului.
+   //SND_FILENAME = Dacă fișierul nu poate fi găsit, funcția redă sunetul implicit, cu excepția cazului în care este setat indicatorul SND_NODEFAULT.
+   //SND_ASYNC = Sunetul este redat asincron și PlaySound revine imediat după începerea sunetului.
 }
 
 
 int main()
 {
 
-    //nume1
-    //nume2
-    //nume3
+
 
     Start();
+    system("pause");
 
 
     return 0;
