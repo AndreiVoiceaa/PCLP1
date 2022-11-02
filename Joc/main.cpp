@@ -1,6 +1,7 @@
 #include <iostream>
 #include <windows.h>
 #include <mmsystem.h>
+#include<cstring>
 
 using namespace std;
 
@@ -16,30 +17,22 @@ using namespace std;
 
 */
 
-/*
- Perk id list :
-
- 1. ArmorBoost (effect)
- 2.
- 3.
- .....
 
 
-*/
-
-
+const unsigned short int LungimeMaximaNumePerk = 31;
+const unsigned short int LungimeMaximaDescrierePerk = 256;
 
 struct stats
 {
-  int health = 100;
-  int damage = 1;
-  int armor  = 0;
+  unsigned short int health = 100;
+  unsigned short int damage = 1;
+  unsigned short int armor  = 0;
 
    struct
    {
      int coins = 0;
      int experience = 0;
-     int itemId = 0;
+     unsigned short int itemId = 0;
 
 
    }drop;
@@ -48,14 +41,38 @@ struct stats
 
 }PlayerStats,EnemyStats;
 
-void Perks()
+
+struct Perk
 {
+    char Name[LungimeMaximaNumePerk];
+    char Description[LungimeMaximaDescrierePerk];
+    bool isActive = false;
     //Daca nivelul este 1 primeste perk-ul a(+descriere) / alege dintre perk-ul a si b (+descriere la fiecare)
     //Probabil afisam un vector cu integeri care rep perk-urile . Dupa alegerea unui perk se sterge din acesta indicele si se adauga in altul
     //iar la cresterea in nivel se adauga elemente in vector .
 
 
+}perks[20];
+
+void InitializareDate()
+{
+    //Perks
+
+    strcpy(perks[0].Name , "Mirror Force");
+    strcpy(perks[0].Description , "It reflects damage back to the attacker");
+
+    strcpy(perks[1].Name , "Radiance");
+    strcpy(perks[1].Description , "Does magical damage over time to the enemy");
+
+    strcpy(perks[2].Name , "Bleed");
+    strcpy(perks[2].Description , "Critical hits cause the enemy to bleed every round");
+
+    //Items
+
+
+    //Stats
 }
+
 
 void Plot(int chapter)
 {
@@ -120,6 +137,7 @@ void Shop()
 void Start()
 {
 
+   InitializareDate();
    FullScreen();
 
    PlaySound(TEXT("MainMusic.wav") , NULL , SND_FILENAME | SND_ASYNC | SND_LOOP);
