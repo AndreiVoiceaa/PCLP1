@@ -3,8 +3,9 @@
 	<iostream>
 	<windows.h>
 
-1667112703 source:d:\proiectoff\joc\main.cpp
+1667394843 source:d:\proiectoff\joc\main.cpp
 	<iostream>
 	<windows.h>
 	<mmsystem.h>
+	<cstring>
 
