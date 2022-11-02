@@ -129,6 +129,8 @@ void Start()
    //a datelor binare în format text, având drept țel final să cuprindă toate caracterele din toate limbile globului.
    //SND_FILENAME = Dacă fișierul nu poate fi găsit, funcția redă sunetul implicit, cu excepția cazului în care este setat indicatorul SND_NODEFAULT.
    //SND_ASYNC = Sunetul este redat asincron și PlaySound revine imediat după începerea sunetului.
+
+
 }
 
 
