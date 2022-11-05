@@ -21,6 +21,7 @@ using namespace std;
 
 const unsigned short int LungimeMaximaNumePerk = 31;
 const unsigned short int LungimeMaximaDescrierePerk = 256;
+const unsigned short int LungimeMaximaVectorPerks = 10;
 
 struct stats
 {
@@ -52,7 +53,55 @@ struct Perk
     //iar la cresterea in nivel se adauga elemente in vector .
 
 
-}perks[20];
+}perks[LungimeMaximaVectorPerks-1];
+
+
+void LevelUp()
+{
+    unsigned short int indexare=0;
+    unsigned short int x=0;
+    unsigned short int alegere=0;
+    unsigned short int level=1;//se inlocuieste cu PlayerStats.level
+
+     TP:
+     for(unsigned short int i=x; i<level+1 && level<=LungimeMaximaVectorPerks-1; i++)
+     {
+
+         cout<<++indexare<<"."<<perks[i].Name<<endl;
+         cout<<perks[i].Description<<endl;
+         if(i==level){
+            cin>>alegere;
+            if(alegere<1 || alegere>2)
+            {
+                indexare=0;
+                system("cls");
+                goto TP;
+            }
+            if(x!=alegere)
+            {
+                swap(perks[x] , perks[alegere+x-1]);
+
+            }
+
+
+
+         }
+     }
+      indexare=0;
+      if(level<LungimeMaximaVectorPerks)
+      x++;
+
+
+    cout<<"Perk-uri detinute:"<<endl;
+    for(unsigned short int i=0; i<=x; i++)
+    {
+      cout<<i+1<<"."<<perks[i].Name<<endl;
+
+    }
+
+
+
+}
 
 void InitializareDate()
 {
@@ -66,6 +115,7 @@ void InitializareDate()
 
     strcpy(perks[2].Name , "Bleed");
     strcpy(perks[2].Description , "Critical hits cause the enemy to bleed every round");
+
 
     //Items
 
@@ -120,9 +170,12 @@ void FullScreen()
 }
 
 
+
+
+
 int Combat(int damageAttacker , int armorDefender) //+alti factori posibili care modifica damage-ul
 {
-
+    //daca lvlup LevelUp();
 
    return damageAttacker;
 }
@@ -154,9 +207,6 @@ void Start()
 
 int main()
 {
-
-
-
     Start();
     system("pause");
 
