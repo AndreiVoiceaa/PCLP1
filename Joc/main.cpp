@@ -23,25 +23,56 @@ const unsigned short int LungimeMaximaNumePerk = 31;
 const unsigned short int LungimeMaximaDescrierePerk = 256;
 const unsigned short int LungimeMaximaVectorPerks = 10;
 
-struct stats
+
+
+
+class stats
 {
+  public:
   unsigned short int health = 100;
   unsigned short int damage = 1;
   unsigned short int armor  = 0;
 
-   struct
+  public: void ShowStats()
+  {
+      cout<<endl<<health<<endl<<damage<<endl<<armor;
+  }
+
+  public: void SetStats(unsigned short int _health , unsigned short int _damage , unsigned short int _armor)
+  {
+      health = _health;
+      damage = _damage;
+      armor = _armor;
+
+
+
+  }
+
+};
+
+
+class Player : public stats {
+
+   public: void FunctieSpecifica()
    {
-     int coins = 0;
-     int experience = 0;
-     unsigned short int itemId = 0;
+       cout<<"Acesta este clasa player-ului";
+
+   }
 
 
-   }drop;
+}player;
 
-  //noroc (critical hits , evasion)
 
-}PlayerStats,EnemyStats;
+class Enemy : public stats {
 
+   public: void FunctieSpecifica()
+   {
+       cout<<endl<<"Acesta este clasa Inamicului";
+
+   }
+
+
+}enemy;
 
 struct Perk
 {
@@ -105,6 +136,8 @@ void LevelUp()
 
 void InitializareDate()
 {
+
+
     //Perks
 
     strcpy(perks[0].Name , "Mirror Force");
@@ -190,8 +223,9 @@ void Shop()
 void Start()
 {
 
-   InitializareDate();
+
    FullScreen();
+   InitializareDate();
 
    PlaySound(TEXT("MainMusic.wav") , NULL , SND_FILENAME | SND_ASYNC | SND_LOOP);
    //Funcția PlaySound redă un sunet specificat de numele fișierului, resursa sau evenimentul de sistem dat.
