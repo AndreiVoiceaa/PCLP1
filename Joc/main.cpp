@@ -38,7 +38,8 @@ class stats
       cout<<endl<<health<<endl<<damage<<endl<<armor;
   }
 
-  public: void SetStats(unsigned short int _health , unsigned short int _damage , unsigned short int _armor)
+  public:
+  stats(unsigned short int _health , unsigned short int _damage , unsigned short int _armor)
   {
       health = _health;
       damage = _damage;
@@ -47,6 +48,11 @@ class stats
 
 
   }
+  stats(){
+
+
+  }
+
 
 };
 
@@ -59,6 +65,16 @@ class Player : public stats {
 
    }
 
+   Player(unsigned short int _health , unsigned short int _damage , unsigned short int _armor)
+   :stats(_health , _damage , _armor){
+
+
+   }
+
+   Player(){
+
+
+   }
 
 }player;
 
@@ -71,7 +87,16 @@ class Enemy : public stats {
 
    }
 
+    Enemy(unsigned short int _health , unsigned short int _damage , unsigned short int _armor)
+    :stats(_health,_damage,_armor)
+    {
 
+    }
+
+    Enemy(){
+
+
+    }
 }enemy;
 
 struct Perk
@@ -136,7 +161,6 @@ void LevelUp()
 
 void InitializareDate()
 {
-
 
     //Perks
 
