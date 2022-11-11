@@ -30,8 +30,13 @@ class stats
 {
   public:
   unsigned short int health = 100;
-  unsigned short int damage = 1;
-  unsigned short int armor  = 0;
+  unsigned short int PhysicalDamage= 1;
+  unsigned short int ExperienceDroped  = 0;
+  unsigned short int MagicalDamage=0;
+  unsigned short int MagicalArmor=0;
+  unsigned short int PhysicalArmor=0;
+  unsigned short int Level=1;
+  unsigned short int Evasion=0;
 
   public: void ShowStats()
   {
