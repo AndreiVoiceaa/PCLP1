@@ -40,7 +40,7 @@ class stats
 
   public: void ShowStats()
   {
-      cout<<endl<<health<<endl<<damage<<endl<<armor;
+      cout<<endl<<health<<endl<<PhysicalDamage<<endl<<ExperienceDroped<<endl<<MagicalDamage<<endl<<MagicalArmor<<endl<<PhysicalArmor<<endl<<Level<<endl<<Evasion ;
   }
 
   public:
