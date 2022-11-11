@@ -47,8 +47,8 @@ class stats
   stats(unsigned short int _health , unsigned short int _damage , unsigned short int _armor)
   {
       health = _health;
-      damage = _damage;
-      armor = _armor;
+      PhysicalDamage= _damage;
+      PhysicalArmor= _armor;
 
 
 
