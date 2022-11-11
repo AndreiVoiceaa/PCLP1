@@ -15,7 +15,7 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library="../../Downloads/CodeBlocks/MinGW/x86_64-w64-mingw32/lib/libwinmm.a" />
+					<Add library="C:/Users/savaa/Downloads/CodeBlocks/MinGW/x86_64-w64-mingw32/lib/libwinmm.a" />
 				</Linker>
 			</Target>
 			<Target title="Release">
