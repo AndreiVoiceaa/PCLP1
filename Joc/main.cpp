@@ -22,6 +22,7 @@ using namespace std;
 const unsigned short int LungimeMaximaNumePerk = 31;
 const unsigned short int LungimeMaximaDescrierePerk = 256;
 const unsigned short int LungimeMaximaVectorPerks = 10;
+const unsigned short int LungimeMaximaInventar = 10;
 
 
 
@@ -29,32 +30,54 @@ const unsigned short int LungimeMaximaVectorPerks = 10;
 class stats
 {
   public:
-  unsigned short int health = 100;
-  unsigned short int PhysicalDamage= 1;
-  unsigned short int ExperienceDroped  = 0;
-  unsigned short int MagicalDamage=0;
-  unsigned short int MagicalArmor=0;
-  unsigned short int PhysicalArmor=0;
-  unsigned short int Level=1;
-  unsigned short int Evasion=0;
+  short int health;
+  unsigned short int Maxhealth;
+  unsigned short int PhysicalDamage;
+  unsigned short int MagicalDamage;
+  unsigned short int MagicalArmor;
+  unsigned short int PhysicalArmor;
+  unsigned short int Level;
+  unsigned short int Evasion;
+  int Coins;
+  int Experience;
 
   public: void ShowStats()
   {
-      cout<<endl<<health<<endl<<PhysicalDamage<<endl<<ExperienceDroped<<endl<<MagicalDamage<<endl<<MagicalArmor<<endl<<PhysicalArmor<<endl<<Level<<endl<<Evasion ;
+      cout<<endl<<"Maxhealth: "<<Maxhealth<<endl<<"PhysicalDamage: "<<PhysicalDamage<<endl<<"MagicalDamage: "<<MagicalDamage<<endl<<"MagicalArmor: "
+      <<MagicalArmor<<endl<<"PhysicalArmor: "<<PhysicalArmor<<endl<<"Level : "<<Level<<endl<<"Coins: "<<Coins<<endl<<"Exp: "<<Experience<<endl;
+
+
+
   }
 
   public:
-  stats(unsigned short int _health , unsigned short int _damage , unsigned short int _armor)
+  stats(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage , unsigned short int _MagicalDamage , unsigned short int _PhysicalArmor,
+        unsigned short int _MagicalArmor , unsigned short int _Level , int _Coins , int _Experience )
   {
-      health = _health;
-      PhysicalDamage= _damage;
-      PhysicalArmor= _armor;
+      Maxhealth = _Maxhealth;
+      PhysicalDamage = _PhysicalDamage;
+      MagicalDamage = _MagicalDamage;
+      PhysicalArmor = _PhysicalArmor;
+      MagicalArmor = _MagicalArmor;
+      Level = _Level;
+      Coins=_Coins;
+      Experience=_Experience;
+      health=Maxhealth;
 
 
 
   }
   stats(){
-
+     health=100;
+     Maxhealth=100;
+     PhysicalDamage=1;
+     MagicalDamage=1;
+     PhysicalArmor=0;
+     MagicalArmor=0;
+     Level=1;
+     Evasion=0;
+     Coins=0;
+     Experience=0;
 
   }
 
@@ -64,14 +87,22 @@ class stats
 
 class Player : public stats {
 
-   public: void FunctieSpecifica()
+   public: void TakeDamage(unsigned short int EnemyPhysicalDamage)
    {
-       cout<<"Acesta este clasa player-ului";
+       this->health-=EnemyPhysicalDamage;
+
 
    }
 
-   Player(unsigned short int _health , unsigned short int _damage , unsigned short int _armor)
-   :stats(_health , _damage , _armor){
+   public: void Defeat()
+   {
+       system("exit");
+
+   }
+
+   Player(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage , unsigned short int _MagicalDamage , unsigned short int _PhysicalArmor,
+        unsigned short int _MagicalArmor , unsigned short int _Level , int _Coins , int _Experience )
+   :stats(_Maxhealth , _PhysicalDamage , _MagicalDamage , _PhysicalArmor , _MagicalArmor ,  _Level ,  _Coins ,  _Experience ){
 
 
    }
@@ -84,19 +115,93 @@ class Player : public stats {
 }player;
 
 
+class Item
+{
+    public:
+    char Name[LungimeMaximaNumePerk];
+    char Description[LungimeMaximaDescrierePerk];
+    bool Droped=false;
+    unsigned short int AddMaxHealth = 0;
+    unsigned short int AddPhysicalDamage = 0;
+    unsigned short int AddMagicalDamage = 0;
+    unsigned short int AddPhysicalArmor = 0;
+    unsigned short int AddMagicalArmor = 0;
+
+
+
+
+    public:
+        void AddStat()
+
+        {
+             player.Maxhealth+=AddMaxHealth;
+             player.PhysicalDamage+=AddPhysicalDamage;
+             player.MagicalDamage+=AddMagicalDamage;
+             player.PhysicalArmor+=AddPhysicalArmor;
+             player.MagicalArmor+=AddMagicalArmor;
+
+
+        }
+
+
+
+
+
+
+};
+
+Item Inventory[LungimeMaximaInventar];
+int ItemNumber=0;
+
+
 class Enemy : public stats {
 
-   public: void FunctieSpecifica()
+   public:
+       Item itemDroped;
+
+
+   public: void TakeDamage(unsigned short int PlayerPhysicalDamage, unsigned short int PlayerMagicalDamage)
    {
-       cout<<endl<<"Acesta este clasa Inamicului";
+       this->health-=PlayerMagicalDamage;
+       this->health-=PlayerPhysicalDamage;
 
    }
 
-    Enemy(unsigned short int _health , unsigned short int _damage , unsigned short int _armor)
-    :stats(_health,_damage,_armor)
-    {
 
-    }
+   public: void Defeat()
+   {
+
+       itemDroped.Droped=true;//Probabilitati
+
+       Drop();
+   }
+
+   public: void Drop()
+   {
+
+     player.Coins+=this->Coins;
+     player.Experience+=this->Experience;
+     if(itemDroped.Droped==true)
+     {
+         cout<<"Ai primit: "<<itemDroped.Name<<endl;
+         cout<<"Descriere: "<<itemDroped.Description<<endl;
+         ItemNumber++;
+         strcpy(Inventory[ItemNumber].Name , itemDroped.Name);
+         strcpy(Inventory[ItemNumber].Description , itemDroped.Description);
+         itemDroped.AddStat();
+
+
+
+     }
+
+   }
+
+    Enemy(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage , unsigned short int _MagicalDamage , unsigned short int _PhysicalArmor,
+        unsigned short int _MagicalArmor , unsigned short int _Level , int _Coins , int _Experience )
+   :stats(_Maxhealth , _PhysicalDamage , _MagicalDamage , _PhysicalArmor , _MagicalArmor ,  _Level ,  _Coins ,  _Experience ){
+
+
+   }
 
     Enemy(){
 
@@ -108,13 +213,14 @@ struct Perk
 {
     char Name[LungimeMaximaNumePerk];
     char Description[LungimeMaximaDescrierePerk];
-    bool isActive = false;
     //Daca nivelul este 1 primeste perk-ul a(+descriere) / alege dintre perk-ul a si b (+descriere la fiecare)
     //Probabil afisam un vector cu integeri care rep perk-urile . Dupa alegerea unui perk se sterge din acesta indicele si se adauga in altul
     //iar la cresterea in nivel se adauga elemente in vector .
 
 
 }perks[LungimeMaximaVectorPerks-1];
+
+
 
 
 void LevelUp()
@@ -166,8 +272,19 @@ void LevelUp()
 
 void InitializareDate()
 {
+    //initializare player
+    player = Player(100 , 1 , 0 , 0 , 0 , 1 , 0 , 0);
+    //inamicul este initializat inainte de lupta
+    enemy = Enemy(80 , 2 , 0 ,0 ,0 , 2 , 10 , 24);
+    strcpy(enemy.itemDroped.Name , "Sabie");
+    strcpy(enemy.itemDroped.Description , "Mareste physical damage cu 3");
+    enemy.itemDroped.AddPhysicalDamage=3;
+
+
 
     //Perks
+
+
 
     strcpy(perks[0].Name , "Mirror Force");
     strcpy(perks[0].Description , "It reflects damage back to the attacker");
@@ -204,11 +321,20 @@ void Plot(int chapter)
 }
 
 
-void Inventory()
+void ShowStatsBeforeCombat(Enemy _enemy)
 {
+ cout<<"Player Health: "<<player.health<<"                                                                                                                                                                Enemy Health: "<<_enemy.health<<endl<<endl;
+ cout<<"   Player Stats:                                                                                                                                                                    Enemy Stats:    "<<endl;
+ cout<<"Maximum Health: "<<player.Maxhealth<<"                                                                                                                                                               Maximum Health: "<<_enemy.Maxhealth<<endl;
+ cout<<"Physical Damage: "<<player.PhysicalDamage<<"                                                                                                                                                                Physical Damage: "<<_enemy.PhysicalDamage<<endl;
+ cout<<"Magical Damage: "<<player.MagicalDamage<<"                                                                                                                                                                 Magical Damage: "<<_enemy.MagicalDamage<<endl;
+ cout<<"Physical Armor: "<<player.PhysicalArmor<<"                                                                                                                                                                 Physical Armor: "<<_enemy.PhysicalArmor<<endl;
+ cout<<"Magical Armor: "<<player.MagicalArmor<<"                                                                                                                                                                  Magical Armor: "<<_enemy.MagicalArmor<<endl;
+ cout<<"Level: "<<player.Level<<"                                                                                                                                                                          Level: "<<_enemy.Level<<endl;
+ cout<<"Experience: "<<player.Experience<<endl;
+ cout<<"Coins: "<<player.Coins<<endl;
 
-    //vector cu itemele stocate
-
+ cout<<endl;
 
 }
 
@@ -240,7 +366,7 @@ void Animatie(int index)
 
 
     const int delay = 60;
-    system("pause");
+
     system("cls");
     cout<<endl;
     cout<<endl;
@@ -320,18 +446,55 @@ cout<<endl;
 cout<<endl;
 cout<<endl;
 
-Sleep(1);
+Sleep(3000);
+system("cls");
     }
 
 }
 
 
-int Combat(int damageAttacker , int armorDefender) //+alti factori posibili care modifica damage-ul
-{
-    //daca lvlup LevelUp();
 
-   return damageAttacker;
+
+void Combat(Enemy _enemy) //+alti factori posibili care modifica damage-ul
+{
+    while(player.health>0 && _enemy.health>0)
+    {
+
+   ///Player Turn
+
+   _enemy.TakeDamage(player.PhysicalDamage , player.MagicalDamage);
+   ShowStatsBeforeCombat(_enemy);
+   cout<<"Inamicul a fost lovit cu "<<player.PhysicalDamage<<" physical damage si  "<<player.MagicalDamage<<" magical damage"<<endl;
+   if(_enemy.health<=0)
+   {
+       _enemy.Defeat();
+       break;
+   }
+   system("pause");
+   system("cls");
+
+   ///Enemy Turn
+
+    player.TakeDamage(_enemy.PhysicalDamage);
+    ShowStatsBeforeCombat(_enemy);
+    cout<<"Player-ul a fost lovit cu "<<_enemy.PhysicalDamage<<" physical damage "<<endl;
+    if(player.health<=0)
+    {
+        player.Defeat();
+        break;
+    }
+     system("pause");
+     system("cls");
+
+
+
+    }
+
+
 }
+
+
+
 
 void Shop()
 {
@@ -363,7 +526,9 @@ void Start()
 int main()
 {
     Start();
-    system("pause");
+    Combat(enemy);
+
+
 
 
     return 0;
