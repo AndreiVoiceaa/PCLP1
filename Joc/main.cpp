@@ -19,8 +19,7 @@ using namespace std;
 
 
 
-const unsigned short int LungimeMaximaNumePerk = 31;
-const unsigned short int LungimeMaximaDescrierePerk = 256;
+
 const unsigned short int LungimeMaximaVectorPerks = 10;
 const unsigned short int LungimeMaximaInventar = 10;
 
@@ -87,8 +86,9 @@ class stats
 
 class Player : public stats {
 
-   public: void TakeDamage(unsigned short int EnemyPhysicalDamage)
+   public: void TakeDamage(unsigned short int EnemyPhysicalDamage , unsigned short int EnemyMagicalDamage)
    {
+       this->health-=EnemyMagicalDamage;
        this->health-=EnemyPhysicalDamage;
 
 
@@ -118,8 +118,8 @@ class Player : public stats {
 class Item
 {
     public:
-    char Name[LungimeMaximaNumePerk];
-    char Description[LungimeMaximaDescrierePerk];
+    string Name;
+    string Description;
     bool Droped=false;
     unsigned short int AddMaxHealth = 0;
     unsigned short int AddPhysicalDamage = 0;
@@ -158,6 +158,7 @@ class Enemy : public stats {
 
    public:
        Item itemDroped;
+       string EnemyName;
 
 
    public: void TakeDamage(unsigned short int PlayerPhysicalDamage, unsigned short int PlayerMagicalDamage)
@@ -186,8 +187,8 @@ class Enemy : public stats {
          cout<<"Ai primit: "<<itemDroped.Name<<endl;
          cout<<"Descriere: "<<itemDroped.Description<<endl;
          ItemNumber++;
-         strcpy(Inventory[ItemNumber].Name , itemDroped.Name);
-         strcpy(Inventory[ItemNumber].Description , itemDroped.Description);
+         Inventory[ItemNumber].Name = itemDroped.Name;
+         Inventory[ItemNumber].Description = itemDroped.Description;
          itemDroped.AddStat();
 
 
@@ -197,22 +198,22 @@ class Enemy : public stats {
    }
 
     Enemy(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage , unsigned short int _MagicalDamage , unsigned short int _PhysicalArmor,
-        unsigned short int _MagicalArmor , unsigned short int _Level , int _Coins , int _Experience )
+        unsigned short int _MagicalArmor , unsigned short int _Level , int _Coins , int _Experience , string _EnemyName)
    :stats(_Maxhealth , _PhysicalDamage , _MagicalDamage , _PhysicalArmor , _MagicalArmor ,  _Level ,  _Coins ,  _Experience ){
-
+    EnemyName=_EnemyName;
 
    }
 
     Enemy(){
-
+    EnemyName="inamic";
 
     }
 }enemy;
 
 struct Perk
 {
-    char Name[LungimeMaximaNumePerk];
-    char Description[LungimeMaximaDescrierePerk];
+    string Name;
+    string Description;
     //Daca nivelul este 1 primeste perk-ul a(+descriere) / alege dintre perk-ul a si b (+descriere la fiecare)
     //Probabil afisam un vector cu integeri care rep perk-urile . Dupa alegerea unui perk se sterge din acesta indicele si se adauga in altul
     //iar la cresterea in nivel se adauga elemente in vector .
@@ -275,9 +276,9 @@ void InitializareDate()
     //initializare player
     player = Player(100 , 1 , 0 , 0 , 0 , 1 , 0 , 0);
     //inamicul este initializat inainte de lupta
-    enemy = Enemy(80 , 2 , 0 ,0 ,0 , 2 , 10 , 24);
-    strcpy(enemy.itemDroped.Name , "Sabie");
-    strcpy(enemy.itemDroped.Description , "Mareste physical damage cu 3");
+    enemy = Enemy(80 , 2 , 0 ,0 ,0 , 2 , 10 , 24 , "Bear");
+    enemy.itemDroped.Name = "Potir";
+    enemy.itemDroped.Description = "Mareste physical damage cu 3";
     enemy.itemDroped.AddPhysicalDamage=3;
 
 
@@ -286,14 +287,14 @@ void InitializareDate()
 
 
 
-    strcpy(perks[0].Name , "Mirror Force");
-    strcpy(perks[0].Description , "It reflects damage back to the attacker");
+    perks[0].Name = "Mirror Force";
+    perks[0].Description = "It reflects damage back to the attacker";
 
-    strcpy(perks[1].Name , "Radiance");
-    strcpy(perks[1].Description , "Does magical damage over time to the enemy");
+    perks[1].Name = "Radiance";
+    perks[1].Description = "Does magical damage over time to the enemy";
 
-    strcpy(perks[2].Name , "Bleed");
-    strcpy(perks[2].Description , "Critical hits cause the enemy to bleed every round");
+    perks[2].Name = "Bleed";
+    perks[2].Description = "Critical hits cause the enemy to bleed every round";
 
 
     //Items
@@ -323,7 +324,7 @@ void Plot(int chapter)
 
 void ShowStatsBeforeCombat(Enemy _enemy)
 {
- cout<<"Player Health: "<<player.health<<"                                                                                                                                                                Enemy Health: "<<_enemy.health<<endl<<endl;
+ cout<<"Player Health: "<<player.health<<"                                                                                                                                                                 "<<_enemy.EnemyName<<": "<<_enemy.health<<endl<<endl;
  cout<<"   Player Stats:                                                                                                                                                                    Enemy Stats:    "<<endl;
  cout<<"Maximum Health: "<<player.Maxhealth<<"                                                                                                                                                               Maximum Health: "<<_enemy.Maxhealth<<endl;
  cout<<"Physical Damage: "<<player.PhysicalDamage<<"                                                                                                                                                                Physical Damage: "<<_enemy.PhysicalDamage<<endl;
@@ -475,9 +476,9 @@ void Combat(Enemy _enemy) //+alti factori posibili care modifica damage-ul
 
    ///Enemy Turn
 
-    player.TakeDamage(_enemy.PhysicalDamage);
+    player.TakeDamage(_enemy.PhysicalDamage , _enemy.MagicalDamage);
     ShowStatsBeforeCombat(_enemy);
-    cout<<"Player-ul a fost lovit cu "<<_enemy.PhysicalDamage<<" physical damage "<<endl;
+    cout<<"Player-ul a fost lovit cu "<<_enemy.PhysicalDamage<<" physical damage si "<<_enemy.MagicalDamage<<" magical damage"<<endl;
     if(player.health<=0)
     {
         player.Defeat();
@@ -526,6 +527,7 @@ void Start()
 int main()
 {
     Start();
+
     Combat(enemy);
 
 
