@@ -1,7 +1,8 @@
 #include <iostream>
 #include <windows.h>
 #include <mmsystem.h>
-#include<cstring>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -51,13 +52,14 @@ class stats
 
   public:
   stats(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage , unsigned short int _MagicalDamage , unsigned short int _PhysicalArmor,
-        unsigned short int _MagicalArmor , unsigned short int _Level , int _Coins , int _Experience )
+        unsigned short int _MagicalArmor , unsigned short int _Evasion , unsigned short int _Level , int _Coins , int _Experience )
   {
       Maxhealth = _Maxhealth;
       PhysicalDamage = _PhysicalDamage;
       MagicalDamage = _MagicalDamage;
       PhysicalArmor = _PhysicalArmor;
       MagicalArmor = _MagicalArmor;
+      Evasion = _Evasion;
       Level = _Level;
       Coins=_Coins;
       Experience=_Experience;
@@ -73,6 +75,7 @@ class stats
      MagicalDamage=1;
      PhysicalArmor=0;
      MagicalArmor=0;
+     Evasion=0;
      Level=1;
      Evasion=0;
      Coins=0;
@@ -101,8 +104,8 @@ class Player : public stats {
    }
 
    Player(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage , unsigned short int _MagicalDamage , unsigned short int _PhysicalArmor,
-        unsigned short int _MagicalArmor , unsigned short int _Level , int _Coins , int _Experience )
-   :stats(_Maxhealth , _PhysicalDamage , _MagicalDamage , _PhysicalArmor , _MagicalArmor ,  _Level ,  _Coins ,  _Experience ){
+        unsigned short int _MagicalArmor , unsigned short int _Evasion , unsigned short int _Level , int _Coins , int _Experience )
+   :stats(_Maxhealth , _PhysicalDamage , _MagicalDamage , _PhysicalArmor , _MagicalArmor, _Evasion ,  _Level ,  _Coins ,  _Experience ){
 
 
    }
@@ -126,7 +129,7 @@ class Item
     unsigned short int AddMagicalDamage = 0;
     unsigned short int AddPhysicalArmor = 0;
     unsigned short int AddMagicalArmor = 0;
-
+    unsigned short int AddEvasion = 0;
 
 
 
@@ -139,7 +142,7 @@ class Item
              player.MagicalDamage+=AddMagicalDamage;
              player.PhysicalArmor+=AddPhysicalArmor;
              player.MagicalArmor+=AddMagicalArmor;
-
+             player.Evasion += AddEvasion;
 
         }
 
@@ -198,8 +201,8 @@ class Enemy : public stats {
    }
 
     Enemy(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage , unsigned short int _MagicalDamage , unsigned short int _PhysicalArmor,
-        unsigned short int _MagicalArmor , unsigned short int _Level , int _Coins , int _Experience , string _EnemyName)
-   :stats(_Maxhealth , _PhysicalDamage , _MagicalDamage , _PhysicalArmor , _MagicalArmor ,  _Level ,  _Coins ,  _Experience ){
+        unsigned short int _MagicalArmor, unsigned short int _Evasion , unsigned short int _Level , int _Coins , int _Experience , string _EnemyName)
+   :stats(_Maxhealth , _PhysicalDamage , _MagicalDamage , _PhysicalArmor , _MagicalArmor , _Evasion ,  _Level ,  _Coins ,  _Experience ){
     EnemyName=_EnemyName;
 
    }
@@ -274,9 +277,9 @@ void LevelUp()
 void InitializareDate()
 {
     //initializare player
-    player = Player(100 , 1 , 0 , 0 , 0 , 1 , 0 , 0);
+    player = Player(100 , 1 , 0 , 0 , 0 , 80 , 1 , 0 , 0);
     //inamicul este initializat inainte de lupta
-    enemy = Enemy(80 , 2 , 0 ,0 ,0 , 2 , 10 , 24 , "Bear");
+    enemy = Enemy(80 , 2 , 0 ,0 ,0 , 19 , 2 , 10 , 24 , "Bear");
     enemy.itemDroped.Name = "Potir";
     enemy.itemDroped.Description = "Mareste physical damage cu 3";
     enemy.itemDroped.AddPhysicalDamage=3;
@@ -324,14 +327,15 @@ void Plot(int chapter)
 
 void ShowStatsBeforeCombat(Enemy _enemy)
 {
- cout<<"Player Health: "<<player.health<<"                                                                                                                                                                 "<<_enemy.EnemyName<<": "<<_enemy.health<<endl<<endl;
- cout<<"   Player Stats:                                                                                                                                                                    Enemy Stats:    "<<endl;
- cout<<"Maximum Health: "<<player.Maxhealth<<"                                                                                                                                                               Maximum Health: "<<_enemy.Maxhealth<<endl;
- cout<<"Physical Damage: "<<player.PhysicalDamage<<"                                                                                                                                                                Physical Damage: "<<_enemy.PhysicalDamage<<endl;
- cout<<"Magical Damage: "<<player.MagicalDamage<<"                                                                                                                                                                 Magical Damage: "<<_enemy.MagicalDamage<<endl;
- cout<<"Physical Armor: "<<player.PhysicalArmor<<"                                                                                                                                                                 Physical Armor: "<<_enemy.PhysicalArmor<<endl;
- cout<<"Magical Armor: "<<player.MagicalArmor<<"                                                                                                                                                                  Magical Armor: "<<_enemy.MagicalArmor<<endl;
- cout<<"Level: "<<player.Level<<"                                                                                                                                                                          Level: "<<_enemy.Level<<endl;
+ cout<<"                                                                                                        Player|"<<_enemy.EnemyName<<" Health: "<<player.health<<"|"<<_enemy.health<<endl<<endl;
+ cout<<"   Player|"<<_enemy.EnemyName<<" Stats: "<<endl<<endl;
+ cout<<"Maximum Health: "<<player.Maxhealth<<"|"<<_enemy.Maxhealth<<endl;
+ cout<<"Physical Damage: "<<player.PhysicalDamage<<"|"<<_enemy.PhysicalDamage<<endl;
+ cout<<"Magical Damage: "<<player.MagicalDamage<<"|"<<_enemy.MagicalDamage<<endl;
+ cout<<"Physical Armor: "<<player.PhysicalArmor<<"|"<<_enemy.PhysicalArmor<<endl;
+ cout<<"Magical Armor: "<<player.MagicalArmor<<"|"<<_enemy.MagicalArmor<<endl;
+ cout<<"Evasion: "<<player.Evasion<<"%|"<<_enemy.Evasion<<"%"<<endl;
+ cout<<"Level: "<<player.Level<<"|"<<_enemy.Level<<endl;
  cout<<"Experience: "<<player.Experience<<endl;
  cout<<"Coins: "<<player.Coins<<endl;
 
@@ -463,19 +467,40 @@ void Combat(Enemy _enemy) //+alti factori posibili care modifica damage-ul
 
    ///Player Turn
 
+   unsigned short int RandomNumber = 1 + (rand() % 100);
+   cout<<RandomNumber<<endl;
+
+   if(RandomNumber>_enemy.Evasion)
+   {
+
+
    _enemy.TakeDamage(player.PhysicalDamage , player.MagicalDamage);
    ShowStatsBeforeCombat(_enemy);
-   cout<<"Inamicul a fost lovit cu "<<player.PhysicalDamage<<" physical damage si  "<<player.MagicalDamage<<" magical damage"<<endl;
+   cout<<_enemy.EnemyName<<" a fost lovit cu "<<player.PhysicalDamage<<" physical damage si  "<<player.MagicalDamage<<" magical damage"<<endl;
    if(_enemy.health<=0)
    {
        _enemy.Defeat();
        break;
+   }
+
+
+   }else
+   {
+       ShowStatsBeforeCombat(_enemy);
+       cout<<_enemy.EnemyName<<" s-a ferit de atac"<<endl;
+
+
    }
    system("pause");
    system("cls");
 
    ///Enemy Turn
 
+    RandomNumber = 1 + (rand() % 100);
+    cout<<RandomNumber<<endl;
+
+    if(RandomNumber>player.Evasion)
+    {
     player.TakeDamage(_enemy.PhysicalDamage , _enemy.MagicalDamage);
     ShowStatsBeforeCombat(_enemy);
     cout<<"Player-ul a fost lovit cu "<<_enemy.PhysicalDamage<<" physical damage si "<<_enemy.MagicalDamage<<" magical damage"<<endl;
@@ -483,6 +508,13 @@ void Combat(Enemy _enemy) //+alti factori posibili care modifica damage-ul
     {
         player.Defeat();
         break;
+    }
+
+    }else
+    {
+     ShowStatsBeforeCombat(_enemy);
+     cout<<"Player-ul s-a ferit de atac"<<endl;
+
     }
      system("pause");
      system("cls");
@@ -509,8 +541,9 @@ void Start()
 
 
    FullScreen();
+   srand((unsigned) time(NULL)); //folosim srand pentru a nu genera de fiecare data aceleasi numere aleatorii
    InitializareDate();
-   Animatie (1);
+  // Animatie (1);
 
    PlaySound(TEXT("MainMusic.wav") , NULL , SND_FILENAME | SND_ASYNC | SND_LOOP);
    //Funcția PlaySound redă un sunet specificat de numele fișierului, resursa sau evenimentul de sistem dat.
@@ -527,6 +560,7 @@ void Start()
 int main()
 {
     Start();
+
 
     Combat(enemy);
 
