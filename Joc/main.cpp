@@ -89,6 +89,9 @@ class stats
 
 class Player : public stats {
 
+  public:
+   int ExperienceLimit;
+
    public: void TakeDamage(unsigned short int EnemyPhysicalDamage , unsigned short int EnemyMagicalDamage)
    {
        this->health-=EnemyMagicalDamage;
@@ -104,14 +107,14 @@ class Player : public stats {
    }
 
    Player(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage , unsigned short int _MagicalDamage , unsigned short int _PhysicalArmor,
-        unsigned short int _MagicalArmor , unsigned short int _Evasion , unsigned short int _Level , int _Coins , int _Experience )
+        unsigned short int _MagicalArmor , unsigned short int _Evasion , unsigned short int _Level , int _Coins , int _Experience , int _ExperienceLimit)
    :stats(_Maxhealth , _PhysicalDamage , _MagicalDamage , _PhysicalArmor , _MagicalArmor, _Evasion ,  _Level ,  _Coins ,  _Experience ){
 
-
+       ExperienceLimit=_ExperienceLimit;
    }
 
    Player(){
-
+       ExperienceLimit=100;
 
    }
 
@@ -123,13 +126,14 @@ class Item
     public:
     string Name;
     string Description;
+    unsigned short int DropChance;
     bool Droped=false;
-    unsigned short int AddMaxHealth = 0;
-    unsigned short int AddPhysicalDamage = 0;
-    unsigned short int AddMagicalDamage = 0;
-    unsigned short int AddPhysicalArmor = 0;
-    unsigned short int AddMagicalArmor = 0;
-    unsigned short int AddEvasion = 0;
+    unsigned short int AddMaxHealth;
+    unsigned short int AddPhysicalDamage;
+    unsigned short int AddMagicalDamage;
+    unsigned short int AddPhysicalArmor;
+    unsigned short int AddMagicalArmor;
+    unsigned short int AddEvasion;
 
 
 
@@ -147,7 +151,37 @@ class Item
         }
 
 
+    Item(string _Name , string _Description , unsigned short int _DropChance ,unsigned short int _AddMaxHealth ,unsigned short int _AddPhysicalDamage ,unsigned short int _AddMagicalDamage ,unsigned short int _AddPhysicalArmor ,
+         unsigned short int _AddMagicalArmor ,unsigned short int _AddEvasion)
+    {
+        Name=_Name;
+        Description=_Description;
+        DropChance=_DropChance;
+        AddMaxHealth=_AddMaxHealth;
+        AddPhysicalDamage=_AddPhysicalDamage;
+        AddMagicalDamage=_AddMagicalDamage;
+        AddPhysicalArmor=_AddPhysicalArmor;
+        AddMagicalArmor=_AddMagicalArmor;
+        AddEvasion=_AddEvasion;
 
+
+    }
+
+     Item()
+     {
+
+         DropChance=0;
+         AddMaxHealth=0;
+         AddPhysicalDamage=0;
+         AddMagicalDamage=0;
+         AddPhysicalArmor=0;
+         AddMagicalArmor=0;
+         AddEvasion=0;
+         Name="Default item name";
+         Description="Default item description";
+
+
+     }
 
 
 
@@ -175,7 +209,7 @@ class Enemy : public stats {
    public: void Defeat()
    {
 
-       itemDroped.Droped=true;//Probabilitati
+       //Probabilitati
 
        Drop();
    }
@@ -185,19 +219,37 @@ class Enemy : public stats {
 
      player.Coins+=this->Coins;
      player.Experience+=this->Experience;
-     if(itemDroped.Droped==true)
+
+
+
+     unsigned short int RandomNumber = 1 + (rand() % 100);
+
+
+     if(RandomNumber<=itemDroped.DropChance)
      {
-         cout<<"Ai primit: "<<itemDroped.Name<<endl;
-         cout<<"Descriere: "<<itemDroped.Description<<endl;
+
+
+
+     if(itemDroped.Droped==false)
+     {
+         cout<<"Ai primit: "<<itemDroped.Name<<endl<<endl;
+         cout<<"Descriere: "<<itemDroped.Description<<endl<<endl<<"+ Coins: "<<this->Coins<<" si "<<this->Experience<<" XP"<<endl<<endl;
          ItemNumber++;
          Inventory[ItemNumber].Name = itemDroped.Name;
          Inventory[ItemNumber].Description = itemDroped.Description;
          itemDroped.AddStat();
+         itemDroped.Droped=true;
 
 
+
+     } else cout<<"Ai obtinut deja item-ul acestui inamic!"<<endl<<endl<<"Dar ai primit: "<<this->Coins<<" Coins si "<<this->Experience<<" XP"<<endl<<endl;
 
      }
+     else
+     {
+         cout<<"Nu ai obtinut niciun item in urma luptei"<<endl<<endl<<"Dar ai primit: "<<this->Coins<<" Coins si "<<this->Experience<<" XP"<<endl<<endl;
 
+     }
    }
 
     Enemy(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage , unsigned short int _MagicalDamage , unsigned short int _PhysicalArmor,
@@ -229,18 +281,26 @@ struct Perk
 
 void LevelUp()
 {
+
+    int AdditionalXP=player.Experience-player.ExperienceLimit;
+    player.Level++;
+    player.Experience=0+AdditionalXP;
+    player.ExperienceLimit=player.ExperienceLimit*2-player.ExperienceLimit/2;
+    cout<<"Ai crescut un nivel !! "<<endl<<"Nivel actual: "<<player.Level<<" , mai ai "<<player.ExperienceLimit<<" XP pana la urmatorul nivel."<<endl<<endl;
+
+    /*
     unsigned short int indexare=0;
     unsigned short int x=0;
     unsigned short int alegere=0;
-    unsigned short int level=1;//se inlocuieste cu PlayerStats.level
+
 
      TP:
-     for(unsigned short int i=x; i<level+1 && level<=LungimeMaximaVectorPerks-1; i++)
+     for(unsigned short int i=x; i<player.Level+1 && player.Level<=LungimeMaximaVectorPerks-1; i++)
      {
 
          cout<<++indexare<<"."<<perks[i].Name<<endl;
          cout<<perks[i].Description<<endl;
-         if(i==level){
+         if(i==player.Level){
             cin>>alegere;
             if(alegere<1 || alegere>2)
             {
@@ -259,7 +319,7 @@ void LevelUp()
          }
      }
       indexare=0;
-      if(level<LungimeMaximaVectorPerks)
+      if(player.Level<LungimeMaximaVectorPerks)
       x++;
 
 
@@ -270,19 +330,18 @@ void LevelUp()
 
     }
 
-
+ */
 
 }
 
 void InitializareDate()
 {
     //initializare player
-    player = Player(100 , 1 , 0 , 0 , 0 , 80 , 1 , 0 , 0);
+    player = Player(100 , 50 , 0 , 0 , 0 , 80 , 1 , 0 , 0 , 100);
     //inamicul este initializat inainte de lupta
     enemy = Enemy(80 , 2 , 0 ,0 ,0 , 19 , 2 , 10 , 24 , "Bear");
-    enemy.itemDroped.Name = "Potir";
-    enemy.itemDroped.Description = "Mareste physical damage cu 3";
-    enemy.itemDroped.AddPhysicalDamage=3;
+
+    enemy.itemDroped = Item("Potir" , "Ofera 3 physical damage" , 100 , 0 , 3 , 0 , 0 , 0 , 0);
 
 
 
@@ -462,6 +521,15 @@ system("cls");
 
 void Combat(Enemy _enemy) //+alti factori posibili care modifica damage-ul
 {
+
+    Grind:
+
+        system("cls");
+        player.health=player.Maxhealth;
+        _enemy.health=_enemy.Maxhealth;
+
+
+
     while(player.health>0 && _enemy.health>0)
     {
 
@@ -476,7 +544,7 @@ void Combat(Enemy _enemy) //+alti factori posibili care modifica damage-ul
 
    _enemy.TakeDamage(player.PhysicalDamage , player.MagicalDamage);
    ShowStatsBeforeCombat(_enemy);
-   cout<<_enemy.EnemyName<<" a fost lovit cu "<<player.PhysicalDamage<<" physical damage si  "<<player.MagicalDamage<<" magical damage"<<endl;
+   cout<<_enemy.EnemyName<<" a fost lovit cu "<<player.PhysicalDamage<<" physical damage si  "<<player.MagicalDamage<<" magical damage"<<endl<<endl;
    if(_enemy.health<=0)
    {
        _enemy.Defeat();
@@ -487,7 +555,7 @@ void Combat(Enemy _enemy) //+alti factori posibili care modifica damage-ul
    }else
    {
        ShowStatsBeforeCombat(_enemy);
-       cout<<_enemy.EnemyName<<" s-a ferit de atac"<<endl;
+       cout<<_enemy.EnemyName<<" s-a ferit de atac"<<endl<<endl;
 
 
    }
@@ -503,7 +571,7 @@ void Combat(Enemy _enemy) //+alti factori posibili care modifica damage-ul
     {
     player.TakeDamage(_enemy.PhysicalDamage , _enemy.MagicalDamage);
     ShowStatsBeforeCombat(_enemy);
-    cout<<"Player-ul a fost lovit cu "<<_enemy.PhysicalDamage<<" physical damage si "<<_enemy.MagicalDamage<<" magical damage"<<endl;
+    cout<<"Player-ul a fost lovit cu "<<_enemy.PhysicalDamage<<" physical damage si "<<_enemy.MagicalDamage<<" magical damage"<<endl<<endl;
     if(player.health<=0)
     {
         player.Defeat();
@@ -513,7 +581,7 @@ void Combat(Enemy _enemy) //+alti factori posibili care modifica damage-ul
     }else
     {
      ShowStatsBeforeCombat(_enemy);
-     cout<<"Player-ul s-a ferit de atac"<<endl;
+     cout<<"Player-ul s-a ferit de atac"<<endl<<endl;
 
     }
      system("pause");
@@ -522,6 +590,33 @@ void Combat(Enemy _enemy) //+alti factori posibili care modifica damage-ul
 
 
     }
+
+
+    if(player.Experience>=player.ExperienceLimit)
+    {
+        LevelUp();
+
+
+
+    }
+
+//Error Handler
+    ReiaRaspuns:
+    char Raspuns=' ';
+    cout<<"Doresti sa lupti din nou cu acelasi inamic ? (1=DA , 2=NU)";
+    cin>>Raspuns;
+    if(Raspuns=='1')
+        goto Grind;
+    else if(Raspuns!='2')
+    {
+        cout<<"Input Gresit"<<endl<<endl;
+        system("pause");
+        system("cls");
+        goto ReiaRaspuns;
+    }
+
+
+
 
 
 }
