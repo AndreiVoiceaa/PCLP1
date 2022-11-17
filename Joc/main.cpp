@@ -26,6 +26,55 @@ const unsigned short int LungimeMaximaInventar = 10;
 
 
 
+void ErrorHandler( int ErrorNumber)
+{
+
+    if(ErrorNumber==1)
+    {
+
+       cout<<"Input Gresit"<<" -ErrorNumber ("<<ErrorNumber<<")"<<endl<<endl;
+
+    }
+
+
+
+       system("pause");
+       system("cls");
+
+
+}
+
+
+string HandleInput(string Question)
+{
+
+    ReiaRaspuns:
+    cout<<Question<<endl<<endl;
+    try {
+    string Raspuns=" ";
+    cin>>Raspuns;
+    if(Raspuns=="1")
+        return Raspuns;
+    else if(Raspuns!="2")
+    {
+        throw (1);
+    }
+
+    return Raspuns;
+
+    }
+    catch ( int MesajEroare) {
+
+    ErrorHandler(MesajEroare);
+    goto ReiaRaspuns;
+
+
+    }
+
+
+
+}
+
 
 class stats
 {
@@ -600,20 +649,12 @@ void Combat(Enemy _enemy) //+alti factori posibili care modifica damage-ul
 
     }
 
-//Error Handler
-    ReiaRaspuns:
-    char Raspuns=' ';
-    cout<<"Doresti sa lupti din nou cu acelasi inamic ? (1=DA , 2=NU)";
-    cin>>Raspuns;
-    if(Raspuns=='1')
+
+   if(HandleInput("Doresti sa lupti cu inamicul din nou? (1-DA , 2-NU)")=="1")
         goto Grind;
-    else if(Raspuns!='2')
-    {
-        cout<<"Input Gresit"<<endl<<endl;
-        system("pause");
-        system("cls");
-        goto ReiaRaspuns;
-    }
+
+
+
 
 
 
