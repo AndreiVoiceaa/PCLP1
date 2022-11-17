@@ -23,13 +23,14 @@ using namespace std;
 
 const unsigned short int LungimeMaximaVectorPerks = 10;
 const unsigned short int LungimeMaximaInventar = 10;
+const int InputErrorNumber=1;
 
 
 
 void ErrorHandler( int ErrorNumber)
 {
-
-    if(ErrorNumber==1)
+system("cls");
+    if(ErrorNumber==InputErrorNumber)
     {
 
        cout<<"Input Gresit"<<" -ErrorNumber ("<<ErrorNumber<<")"<<endl<<endl;
@@ -57,7 +58,7 @@ string HandleInput(string Question)
         return Raspuns;
     else if(Raspuns!="2")
     {
-        throw (1);
+        throw (InputErrorNumber);
     }
 
     return Raspuns;
