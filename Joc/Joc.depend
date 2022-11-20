@@ -3,16 +3,49 @@
 	<iostream>
 	<windows.h>
 
-1668670989 source:d:\proiectoff\joc\main.cpp
+1668946137 source:d:\proiectoff\joc\main.cpp
 	<iostream>
 	<windows.h>
 	<mmsystem.h>
 	<cstdlib>
 	<ctime>
+	"Stats.h"
+	"Player.h"
+	"Item.h"
+	"Enemy.h"
 
 1668171831 source:c:\users\savaa\onedrive\desktop\proiect\joc\main.cpp
 	<iostream>
 	<windows.h>
 	<mmsystem.h>
 	<cstring>
+
+1668873759 d:\proiectoff\joc\include\stats.h
+
+1668873690 source:d:\proiectoff\joc\src\stats.cpp
+	"Stats.h"
+	<iostream>
+
+1668945576 source:d:\proiectoff\joc\src\player.cpp
+	"Player.h"
+	<windows.h>
+	<iostream>
+
+1668944708 d:\proiectoff\joc\include\player.h
+	"Stats.h"
+	"Item.h"
+
+1668876036 source:d:\proiectoff\joc\src\item.cpp
+	"Item.h"
+
+1668876065 d:\proiectoff\joc\include\item.h
+	<iostream>
+
+1668880574 source:d:\proiectoff\joc\src\enemy.cpp
+	"Enemy.h"
+
+1668942880 d:\proiectoff\joc\include\enemy.h
+	"Item.h"
+	"Stats.h"
+	"Player.h"
 
