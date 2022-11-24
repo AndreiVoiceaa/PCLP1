@@ -1,6 +1,9 @@
 #ifndef STATS_H
 #define STATS_H
+#include <list>
+#include "Perk.h"
 
+using namespace std;
 
 class Stats
 {
@@ -32,6 +35,10 @@ class Stats
   unsigned short int GetMAGICALARMOR();
   unsigned short int GetEVASION();
   short int GetHEALTH();
+  void AddPerk(Perk perk);
+  void ShowPerks();
+
+
 
 
   protected:
@@ -45,6 +52,8 @@ class Stats
   unsigned short int Evasion;
   int Coins;
   int Experience;
+  list<Perk> perks;
+
 };
 
 #endif // STATS_H

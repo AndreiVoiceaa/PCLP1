@@ -156,6 +156,23 @@ Stats::Stats(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage 
         }
 
 
+        void Stats :: AddPerk(Perk perk)
+        {
+            perks.push_back(perk);
+
+
+        }
+
+        void Stats :: ShowPerks()
+        {
+           cout<<"Perks: "<<endl<<endl;
+            for(list<Perk>::iterator it = perks.begin(); it!=perks.end(); ++it)
+        cout<<it->GetName()<<": "<<it->GetDescription()<<endl;
+        cout<<endl;
+
+        }
+
+
   void Stats::ShowStats()
   {
       cout<<endl<<"Maxhealth: "<<Maxhealth<<endl<<"PhysicalDamage: "<<PhysicalDamage<<endl<<"MagicalDamage: "<<MagicalDamage<<endl<<"MagicalArmor: "

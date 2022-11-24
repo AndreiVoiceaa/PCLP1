@@ -3,11 +3,15 @@
 #include <mmsystem.h>
 #include <cstdlib>
 #include <ctime>
+#include <list>
+#include <iterator>
 
 #include "Stats.h"
 #include "Player.h"
 #include "Item.h"
 #include "Enemy.h"
+#include "Perk.h"
+#include "Animator.h"
 
 using namespace std;
 
@@ -26,12 +30,14 @@ using namespace std;
 
 Player player;
 Enemy enemy;
-Item itemDroped;
+Animator Animation_handler;
 
 
-const unsigned short int LungimeMaximaVectorPerks = 10;
-const unsigned short int LungimeMaximaInventar = 10;
+
 const int InputErrorNumber=1;
+list<Perk> AllPerks;
+
+const unsigned short int LogoAnimationIndex=1;
 
 
 void ErrorHandler( int ErrorNumber)
@@ -93,20 +99,7 @@ unsigned short int RNG(unsigned short int minim,unsigned short int maxim)
 }
 
 
-struct Perk
-{
-    string Name;
-    string Description;
-    //Daca nivelul este 1 primeste perk-ul a(+descriere) / alege dintre perk-ul a si b (+descriere la fiecare)
-    //Probabil afisam un vector cu integeri care rep perk-urile . Dupa alegerea unui perk se sterge din acesta indicele si se adauga in altul
-    //iar la cresterea in nivel se adauga elemente in vector .
-
-
-}perks[LungimeMaximaVectorPerks-1];
-
-
-
-
+//muta in clasa player
 void LevelUp()
 {
 
@@ -117,51 +110,81 @@ void LevelUp()
     player.ExperienceLimit=player.ExperienceLimit*2-player.ExperienceLimit/2;
     cout<<"Ai crescut un nivel !! "<<endl<<"Nivel actual: "<<player.GetLevel()<<" , mai ai "<<player.ExperienceLimit<<" XP pana la urmatorul nivel."<<endl<<endl;
 
-    /*
-    unsigned short int indexare=0;
-    unsigned short int x=0;
-    unsigned short int alegere=0;
 
 
-     TP:
-     for(unsigned short int i=x; i<player.Level+1 && player.Level<=LungimeMaximaVectorPerks-1; i++)
-     {
-
-         cout<<++indexare<<"."<<perks[i].Name<<endl;
-         cout<<perks[i].Description<<endl;
-         if(i==player.Level){
-            cin>>alegere;
-            if(alegere<1 || alegere>2)
-            {
-                indexare=0;
-                system("cls");
-                goto TP;
-            }
-            if(x!=alegere)
-            {
-                swap(perks[x] , perks[alegere+x-1]);
-
-            }
+    unsigned short int i=0;
+    unsigned short int pi=0;
+    unsigned short int ui=0;
+    list<Perk>::iterator it = AllPerks.begin();
 
 
-
-         }
-     }
-      indexare=0;
-      if(player.Level<LungimeMaximaVectorPerks)
-      x++;
-
-
-    cout<<"Perk-uri detinute:"<<endl;
-    for(unsigned short int i=0; i<=x; i++)
+    for(it; it!=AllPerks.end(); ++it)
     {
-      cout<<i+1<<"."<<perks[i].Name<<endl;
+
+        i++;
+        if(i<=player.GetLevel() && it->GetActiveState()==false)
+        {
+
+        if(pi==0)
+        pi=i;
+        else
+        ui=i;
+
+        cout<<it->GetName()<<": "<<it->GetDescription()<<endl<<endl;
+        }
+
 
     }
 
- */
+
+    if(pi<ui)
+    {
+
+
+    if(HandleInput("Alege Perk-ul (1 sau 2)")=="1")
+            {
+
+             it = AllPerks.begin();
+              std::advance(it , pi-1);
+              player.AddPerk(*it);
+
+
+            }
+            else{
+                 it = AllPerks.begin();
+                std::advance(it , ui-1);
+                player.AddPerk(*it);
+            }
+
+
+
+    }else
+    {
+        if(pi!=0)
+        {
+
+
+              it = AllPerks.begin();
+              std::advance(it , pi-1);
+              player.AddPerk(*it);
+
+        }
+    }
+
+    it->SetActiveState(true);
+
+
+
+
+
+
+
+
+
+
 
 }
+
 
 void InitializareDate()
 {
@@ -170,22 +193,16 @@ void InitializareDate()
     //inamicul este initializat inainte de lupta
     enemy = Enemy(80 , 2 , 0 ,0 ,0 , 19 , 2 , 10 , 24 , "Bear");
 
-    itemDroped = Item("Potir" , "Ofera 3 physical damage" , 100 , 0 , 3 , 0 , 0 , 0 , 0);
+    enemy.itemDroped = Item("Potir" , "Ofera 3 physical damage" , 100 , 0 , 3 , 0 , 0 , 0 , 0);
 
 
 
     //Perks
 
-
-
-    perks[0].Name = "Mirror Force";
-    perks[0].Description = "It reflects damage back to the attacker";
-
-    perks[1].Name = "Radiance";
-    perks[1].Description = "Does magical damage over time to the enemy";
-
-    perks[2].Name = "Bleed";
-    perks[2].Description = "Critical hits cause the enemy to bleed every round";
+    AllPerks.push_back(Perk("Mirror Force" , "It reflects damage back to the attacker" , false));
+    AllPerks.push_back(Perk("Radiance" , "Does magical damage over time to the enemy" , false));
+    AllPerks.push_back(Perk("Bleed" , "Critical hits cause the enemy to bleed every round" , false));
+    AllPerks.push_back(Perk("Tougness" , "Incresead armor and health" , false));
 
 
     //Items
@@ -215,8 +232,8 @@ void Plot(int chapter)
 
 void ShowStatsBeforeCombat(Enemy _enemy)
 {
- cout<<"                                                                                                        Player|"<<_enemy.EnemyName<<" Health: "<<player.GetHEALTH()<<"|"<<_enemy.GetHEALTH()<<endl<<endl;
- cout<<"   Player|"<<_enemy.EnemyName<<" Stats: "<<endl<<endl;
+ cout<<"                                                                                                        Player|"<<_enemy.GetName()<<" Health: "<<player.GetHEALTH()<<"|"<<_enemy.GetHEALTH()<<endl<<endl;
+ cout<<"   Player|"<<_enemy.GetName()<<" Stats: "<<endl<<endl;
  cout<<"Maximum Health: "<<player.GetMAXHEALTH()<<"|"<<_enemy.GetMAXHEALTH()<<endl;
  cout<<"Physical Damage: "<<player.GetPHYSICALDAMAGE()<<"|"<<_enemy.GetPHYSICALDAMAGE()<<endl;
  cout<<"Magical Damage: "<<player.GetMAGICALDAMAGE()<<"|"<<_enemy.GetMAGICALDAMAGE()<<endl;
@@ -230,6 +247,8 @@ void ShowStatsBeforeCombat(Enemy _enemy)
  cout<<endl;
  player.ShowInventory();
  cout<<endl;
+ player.ShowPerks();
+
  cout<<"Combat Log: "<<endl<<endl;
 }
 
@@ -251,140 +270,6 @@ void FullScreen()
 
 
 }
-
-
-void Animatie(int index)
-{
-
-    if(index==1)
-    {
-
-
-    const int delay = 60;
-
-    system("cls");
-    cout<<endl;
-    cout<<endl;
-    cout<<endl;
-cout<<"                              "<<endl;
-cout<<"                              "<<endl;
-cout<<"                              "<<endl;
-cout<<"                              "<<endl;
-cout<<"                              "<<endl;
-cout<<"                              "<<endl;
-cout<<"                              "<<endl;
-cout<<"                              "<<endl;
-
-cout<<"                                                                     /@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@("<<endl;
-Sleep(1000);
-cout<<"                                                                     /@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@("<<endl;
-Sleep(1000);
-cout<<"                                                                     /@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@("<<endl;
-Sleep(1000);
-cout<<"                                                                     /@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@("<<endl;
-Sleep(delay);
-cout<<"                                                                                                       "<<endl;
-Sleep(delay);
-cout<<"                                                                     ,###########################################################################*"<<endl;
-Sleep(delay);
-cout<<"                                                                     /@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@("<<endl;
-Sleep(delay);
-cout<<"                                                                     /@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@("<<endl;
-Sleep(delay);
-cout<<"                                                                     /@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@("<<endl;
-Sleep(delay);
-cout<<"                                                                                                       "<<endl;
-Sleep(delay);
-cout<<"                                                                                                       "<<endl;
-Sleep(delay);
-cout<<"                                                                     /@@@@@@@@.    %@@@@@@@&    @@@@@@@@@@@@@@@@@@@@@@(     &@@@@@@@%    @@@@@@@@("<<endl;
-Sleep(delay);
-cout<<"                                                                     /@@@@@@@@.    %@@@@@@@&    @@@@@@@@@@@@@@@@@@@@@@(     &@@@@@@@%    @@@@@@@@("<<endl;
-Sleep(delay);
-cout<<"                                                                     /@@@@@@@@.    %@@@@@@@&    @@@@@@@@@@@@@@@@@@@@@@(     &@@@@@@@%    @@@@@@@@("<<endl;
-Sleep(delay);
-cout<<"                                                                     /@@@@@@@@.    %@@@@@@@&    @@@@@@@.       @@@@@@@(     &@@@@@@@%    @@@@@@@@("<<endl;
-Sleep(delay);
-cout<<"                                                                     /@@@@@@@@.    %@@@@@@@&    @@@@@@@.       @@@@@@@(     &@@@@@@@%    @@@@@@@@("<<endl;
-Sleep(delay);
-cout<<"                                                                     /@@@@@@@@.    %@@@@@@@&    @@@@@@@.       @@@@@@@(     &@@@@@@@%    @@@@@@@@("<<endl;
-Sleep(delay);
-cout<<"                                                                     /@@@@@@@@.    %@@@@@@@&    @@@@@@@@@@@@@@@@@@@@@@(     &@@@@@@@%    @@@@@@@@("<<endl;
-Sleep(delay);
-cout<<"                                                                     /@@@@@@@@.    %@@@@@@@&    @@@@@@@@@@@@@@@@@@@@@@(     &@@@@@@@%    @@@@@@@@("<<endl;
-Sleep(delay);
-cout<<"                                                                     /@@@@@@@@.    %@@@@@@@&    @@@@@@@@@@@@@@@@@@@@@@(     &@@@@@@@%    @@@@@@@@("<<endl;
-Sleep(delay);
-cout<<"                                                                     /@@@@@@@@.    %@@@@@@@&                                &@@@@@@@%    @@@@@@@@("<<endl;
-Sleep(delay);
-cout<<"                                                                     /@@@@@@@@.    %@@@@@@@&                                &@@@@@@@%    @@@@@@@@("<<endl;
-Sleep(delay);
-cout<<"                                                                     /@@@@@@@@.    %@@@@@@@&    @@@@@@@@@    (@@@@@@@@      &@@@@@@@%    @@@@@@@@("<<endl;
-Sleep(delay);
-cout<<"                                                                     /@@@@@@@@.    %@@@@@@@&    @@@@@@@@@    (@@@@@@@@      &@@@@@@@%    @@@@@@@@("<<endl;
-Sleep(delay);
-cout<<"                                                                     /@@@@@@@@.    %@@@@@@@&    @@@@@@@@@    (@@@@@@@@      &@@@@@@@%    @@@@@@@@("<<endl;
-Sleep(delay);
-cout<<"                                                                     /@@@@@@@@.    %@@@@@@@&    @@@@@@@@@    (@@@@@@@@      &@@@@@@@%    @@@@@@@@("<<endl;
-Sleep(delay);
-cout<<"                                                                     /@@@@@@@@.    %@@@@@@@&    @@@@@@@@@    (@@@@@@@@      &@@@@@@@%    @@@@@@@@("<<endl;
-Sleep(delay);
-cout<<"                                                                     /@@@@@@@@.    %@@@@@@@&    @@@@@@@@@    (@@@@@@@@      &@@@@@@@%    @@@@@@@@("<<endl;
-Sleep(delay);
-cout<<"                                                                     /@@@@@@@@.    %@@@@@@@&    @@@@@@@@@    (@@@@@@@@      &@@@@@@@%    @@@@@@@@("<<endl;
-Sleep(delay);
-cout<<"                                                                     /@@@@@@@@.    %@@@@@@@&    @@@@@@@@@    (@@@@@@@@      &@@@@@@@%    @@@@@@@@("<<endl;
-Sleep(delay);
-cout<<"                                                                     .********     ,********    *********    .********      ********,    ********."<<endl;
-
-cout<<endl;
-cout<<endl;
-cout<<endl;
-
-Sleep(3000);
-system("cls");
-    }
-
-}
-
-
-void Drop(Enemy _enemy)
-   {
-
-     player.AddCoins(_enemy.GetCoins());
-     player.AddExperience(_enemy.GetExperience());
-
-
-
-     unsigned short int RandomNumber = RNG(1,100);
-
-
-     if(RandomNumber<=itemDroped.GetDROPCHANCE())
-     {
-
-
-
-     if(itemDroped.GetDROPEDSTATE()==false)
-     {
-         cout<<"Ai primit: "<<itemDroped.GetNAME()<<endl<<endl;
-         cout<<"Descriere: "<<itemDroped.GetDESCRIPTION()<<endl<<endl<<"+ Coins: "<<_enemy.GetCoins()<<" si "<<_enemy.GetExperience()<<" XP"<<endl<<endl;
-
-         player.AddItem(itemDroped.GetNAME() , itemDroped.GetDESCRIPTION());
-         player.AddStat(itemDroped.GetAddMaxHealth() , itemDroped.GetAddPhysicalDamage() , itemDroped.GetAddMagicalDamage() ,
-                        itemDroped.GetAddPhysicalArmor() , itemDroped.GetAddMagicalArmor() , itemDroped.GetAddEvasion() );
-         itemDroped.SetDROPEDSTATE(true);
-
-
-
-     } else cout<<"Ai obtinut deja item-ul acestui inamic!"<<endl<<endl<<"Dar ai primit: "<<_enemy.GetCoins()<<" Coins si "<<_enemy.GetExperience()<<" XP"<<endl<<endl;
-
-     }
-     else
-     {
-         cout<<"Nu ai obtinut niciun item in urma luptei"<<endl<<endl<<"Dar ai primit: "<<_enemy.GetCoins()<<" Coins si "<<_enemy.GetExperience()<<" XP"<<endl<<endl;
-
-     }
-   }
 
 
 void Combat(Enemy _enemy) //+alti factori posibili care modifica damage-ul
@@ -412,11 +297,11 @@ void Combat(Enemy _enemy) //+alti factori posibili care modifica damage-ul
 
    _enemy.TakeDamage(player.GetPHYSICALDAMAGE() , player.GetMAGICALDAMAGE());
    ShowStatsBeforeCombat(_enemy);
-   cout<<_enemy.EnemyName<<" a fost lovit cu "<<player.GetPHYSICALDAMAGE()<<" physical damage si  "<<player.GetMAGICALDAMAGE()<<" magical damage"<<endl<<endl;
+   cout<<_enemy.GetName()<<" a fost lovit cu "<<player.GetPHYSICALDAMAGE()<<" physical damage si  "<<player.GetMAGICALDAMAGE()<<" magical damage"<<endl<<endl;
    if(_enemy.GetHEALTH()<=0)
    {
 
-       Drop(enemy);
+       _enemy.Drop(player);
        break;
    }
 
@@ -424,7 +309,7 @@ void Combat(Enemy _enemy) //+alti factori posibili care modifica damage-ul
    }else
    {
        ShowStatsBeforeCombat(_enemy);
-       cout<<_enemy.EnemyName<<" s-a ferit de atac"<<endl<<endl;
+       cout<<_enemy.GetName()<<" s-a ferit de atac"<<endl<<endl;
 
 
    }
@@ -483,15 +368,6 @@ void Combat(Enemy _enemy) //+alti factori posibili care modifica damage-ul
 }
 
 
-
-
-void Shop()
-{
-
-
-
-}
-
 void Start()
 {
 
@@ -499,7 +375,7 @@ void Start()
    FullScreen();
    srand((unsigned) time(NULL)); //folosim srand pentru a nu genera de fiecare data aceleasi numere aleatorii
    InitializareDate();
-  // Animatie (1);
+   Animation_handler.PlayAnimation(LogoAnimationIndex);
 
    PlaySound(TEXT("MainMusic.wav") , NULL , SND_FILENAME | SND_ASYNC | SND_LOOP);
    //Funcția PlaySound redă un sunet specificat de numele fișierului, resursa sau evenimentul de sistem dat.
@@ -521,10 +397,15 @@ int main()
     Combat(enemy);
     system("cls");
     enemy = Enemy(120 , 10 , 2 , 2 , 3 , 30 , 3 , 50 , 39 , "Giant Bear");
-    itemDroped = Item("Bear Fur" , "Gives 20 max health" , 50 , 20 , 0 , 0 , 0 , 0 , 0 );
+    enemy.itemDroped = Item("Bear Fur" , "Gives 20 max health" , 50 , 20 , 0 , 0 , 0 , 0 , 0 );
     Combat(enemy);
     system("cls");
     system("pause");
+
+
+
+
+
 
 
 

@@ -2,6 +2,7 @@
 #define PLAYER_H
 #include "Stats.h"
 #include "Item.h"
+#include "Perk.h"
 
 
 
@@ -22,11 +23,14 @@ class Player:public Stats
     void AddItem(string _Name , string _Description);
 
 
+
     int ExperienceLimit;
 
     private:
         unsigned short int ItemNumber;
-        Item Inventory[10];
+        constexpr static unsigned short int InventoryLength=10;
+        Item Inventory[InventoryLength];
+
 
 
 };

@@ -3,16 +3,20 @@
 	<iostream>
 	<windows.h>
 
-1668946137 source:d:\proiectoff\joc\main.cpp
+1669273004 source:d:\proiectoff\joc\main.cpp
 	<iostream>
 	<windows.h>
 	<mmsystem.h>
 	<cstdlib>
 	<ctime>
+	<list>
+	<iterator>
 	"Stats.h"
 	"Player.h"
 	"Item.h"
 	"Enemy.h"
+	"Perk.h"
+	"Animator.h"
 
 1668171831 source:c:\users\savaa\onedrive\desktop\proiect\joc\main.cpp
 	<iostream>
@@ -20,32 +24,48 @@
 	<mmsystem.h>
 	<cstring>
 
-1668873759 d:\proiectoff\joc\include\stats.h
+1669273004 d:\proiectoff\joc\include\stats.h
+	<list>
+	"Perk.h"
 
-1668873690 source:d:\proiectoff\joc\src\stats.cpp
+1669273004 source:d:\proiectoff\joc\src\stats.cpp
 	"Stats.h"
 	<iostream>
 
-1668945576 source:d:\proiectoff\joc\src\player.cpp
+1669273004 source:d:\proiectoff\joc\src\player.cpp
 	"Player.h"
 	<windows.h>
 	<iostream>
 
-1668944708 d:\proiectoff\joc\include\player.h
+1669273004 d:\proiectoff\joc\include\player.h
 	"Stats.h"
 	"Item.h"
+	"Perk.h"
 
-1668876036 source:d:\proiectoff\joc\src\item.cpp
+1669272963 source:d:\proiectoff\joc\src\item.cpp
 	"Item.h"
 
-1668876065 d:\proiectoff\joc\include\item.h
+1669272963 d:\proiectoff\joc\include\item.h
 	<iostream>
 
-1668880574 source:d:\proiectoff\joc\src\enemy.cpp
+1669273004 source:d:\proiectoff\joc\src\enemy.cpp
 	"Enemy.h"
 
-1668942880 d:\proiectoff\joc\include\enemy.h
+1669273004 d:\proiectoff\joc\include\enemy.h
 	"Item.h"
 	"Stats.h"
 	"Player.h"
+
+1669273004 source:d:\proiectoff\joc\src\perk.cpp
+	"Perk.h"
+
+1669273004 d:\proiectoff\joc\include\perk.h
+	<iostream>
+
+1669273004 source:d:\proiectoff\joc\src\animator.cpp
+	"Animator.h"
+
+1669273004 d:\proiectoff\joc\include\animator.h
+	<windows.h>
+	<iostream>
 
