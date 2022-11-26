@@ -1,5 +1,6 @@
 #include "Perk.h"
 
+
 Perk::Perk()
 {
     Name="Default Perk";
@@ -30,3 +31,9 @@ bool Perk :: GetActiveState()
     return isActive;
 
 }
+
+
+
+
+
+

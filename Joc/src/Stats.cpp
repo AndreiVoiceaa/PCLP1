@@ -38,6 +38,17 @@ Stats::Stats(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage 
 
   }
 
+  void Stats :: DrainHealth(unsigned short int PhysicalAmount , unsigned short int MagicalAmount)
+  {
+
+      health=health-(PhysicalAmount+MagicalAmount);
+
+
+
+  }
+
+
+
   unsigned short int Stats :: GetMAXHEALTH()
   {
 
@@ -181,6 +192,57 @@ Stats::Stats(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage 
 
 
   }
+
+
+
+  void Stats :: TakeDamage(Stats* Atacator)
+   {
+
+
+       //calcul damage total
+      unsigned short int TotalPhysicalDamage = Atacator->GetPHYSICALDAMAGE();
+      unsigned short int TotalMagicalDamage = Atacator->GetMAGICALDAMAGE();
+
+      //atacator perks
+      for(list<Perk>::iterator it = Atacator->perks.begin(); it!=Atacator->perks.end(); ++it)
+      if(it->GetName()=="Radiance")
+        {
+           TotalMagicalDamage+=10;
+        }
+
+
+      //aparator perks
+       for(list<Perk>::iterator it = perks.begin(); it!=perks.end(); ++it)
+         if(it->GetName()=="Mirror Force") // se aplica ultimul
+        {
+            //aplica armura Atacatorului ca expresie in parametru
+            Atacator->DrainHealth( TotalPhysicalDamage/2 , TotalMagicalDamage/2);
+
+        }
+
+       //armor
+
+
+       //parcurege perkurile de atac ale inamicului
+       //parcurge perkurile de aprare ale player-ului
+
+       //mirror force scade si din viata inamicului acelasi procent
+       //radiance
+       //bleed
+
+         health=health-(TotalPhysicalDamage + TotalMagicalDamage);
+
+
+   }
+
+
+   Stats* Stats :: ReturnStats()
+   {
+
+
+       return this;
+
+   }
 
 
 

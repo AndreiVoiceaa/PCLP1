@@ -2,6 +2,8 @@
 #define PERK_H
 #include <iostream>
 
+
+
 using namespace std;
 
 class Perk
@@ -16,6 +18,7 @@ class Perk
         void SetDescription(string val) { Description = val; }
         void SetActiveState(bool state);
         bool GetActiveState();
+
 
 
 

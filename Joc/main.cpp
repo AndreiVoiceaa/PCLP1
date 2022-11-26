@@ -12,6 +12,7 @@
 #include "Enemy.h"
 #include "Perk.h"
 #include "Animator.h"
+#include "Handlers.h"
 
 using namespace std;
 
@@ -30,63 +31,18 @@ using namespace std;
 
 Player player;
 Enemy enemy;
+
 Animator Animation_handler;
+Handlers MainHandle;
 
 
 
-const int InputErrorNumber=1;
 list<Perk> AllPerks;
 
 const unsigned short int LogoAnimationIndex=1;
 
 
-void ErrorHandler( int ErrorNumber)
-{
-system("cls");
-    if(ErrorNumber==InputErrorNumber)
-    {
 
-       cout<<"Input Gresit"<<" -ErrorNumber ("<<ErrorNumber<<")"<<endl<<endl;
-
-    }
-
-
-       system("pause");
-       system("cls");
-
-
-}
-
-
-string HandleInput(string Question)
-{
-
-    ReiaRaspuns:
-    cout<<Question<<endl<<endl;
-    try {
-    string Raspuns=" ";
-    cin>>Raspuns;
-    if(Raspuns=="1")
-        return Raspuns;
-    else if(Raspuns!="2")
-    {
-        throw (InputErrorNumber);
-    }
-
-    return Raspuns;
-
-    }
-    catch ( int MesajEroare) {
-
-    ErrorHandler(MesajEroare);
-    goto ReiaRaspuns;
-
-
-    }
-
-
-
-}
 
 
 
@@ -99,99 +55,14 @@ unsigned short int RNG(unsigned short int minim,unsigned short int maxim)
 }
 
 
-//muta in clasa player
-void LevelUp()
-{
-
-
-    int AdditionalXP=player.GetExperience()-player.ExperienceLimit;
-    player.AddLevel(1);
-    player.SetExperience(AdditionalXP);
-    player.ExperienceLimit=player.ExperienceLimit*2-player.ExperienceLimit/2;
-    cout<<"Ai crescut un nivel !! "<<endl<<"Nivel actual: "<<player.GetLevel()<<" , mai ai "<<player.ExperienceLimit<<" XP pana la urmatorul nivel."<<endl<<endl;
-
-
-
-    unsigned short int i=0;
-    unsigned short int pi=0;
-    unsigned short int ui=0;
-    list<Perk>::iterator it = AllPerks.begin();
-
-
-    for(it; it!=AllPerks.end(); ++it)
-    {
-
-        i++;
-        if(i<=player.GetLevel() && it->GetActiveState()==false)
-        {
-
-        if(pi==0)
-        pi=i;
-        else
-        ui=i;
-
-        cout<<it->GetName()<<": "<<it->GetDescription()<<endl<<endl;
-        }
-
-
-    }
-
-
-    if(pi<ui)
-    {
-
-
-    if(HandleInput("Alege Perk-ul (1 sau 2)")=="1")
-            {
-
-             it = AllPerks.begin();
-              std::advance(it , pi-1);
-              player.AddPerk(*it);
-
-
-            }
-            else{
-                 it = AllPerks.begin();
-                std::advance(it , ui-1);
-                player.AddPerk(*it);
-            }
-
-
-
-    }else
-    {
-        if(pi!=0)
-        {
-
-
-              it = AllPerks.begin();
-              std::advance(it , pi-1);
-              player.AddPerk(*it);
-
-        }
-    }
-
-    it->SetActiveState(true);
-
-
-
-
-
-
-
-
-
-
-
-}
 
 
 void InitializareDate()
 {
     //initializare player
-    player = Player(100 , 50 , 0 , 0 , 0 , 80 , 1 , 0 , 0 , 100 , 0);
+    player = Player(100 , 10 , 5 , 0 , 0 , 20 , 1 , 0 , 0 , 100 , 0);
     //inamicul este initializat inainte de lupta
-    enemy = Enemy(80 , 2 , 0 ,0 ,0 , 19 , 2 , 10 , 24 , "Bear");
+    enemy = Enemy(80 , 2 , 10 ,0 ,0 , 19 , 2 , 10 , 24 , "Bear");
 
     enemy.itemDroped = Item("Potir" , "Ofera 3 physical damage" , 100 , 0 , 3 , 0 , 0 , 0 , 0);
 
@@ -203,6 +74,10 @@ void InitializareDate()
     AllPerks.push_back(Perk("Radiance" , "Does magical damage over time to the enemy" , false));
     AllPerks.push_back(Perk("Bleed" , "Critical hits cause the enemy to bleed every round" , false));
     AllPerks.push_back(Perk("Tougness" , "Incresead armor and health" , false));
+    //list<Perk>::iterator it = AllPerks.begin();
+    //player.AddPerk(*it);
+    //std::advance(it,1);
+
 
 
     //Items
@@ -295,10 +170,17 @@ void Combat(Enemy _enemy) //+alti factori posibili care modifica damage-ul
    {
 
 
-   _enemy.TakeDamage(player.GetPHYSICALDAMAGE() , player.GetMAGICALDAMAGE());
+   _enemy.TakeDamage(player.ReturnStats());
    ShowStatsBeforeCombat(_enemy);
    cout<<_enemy.GetName()<<" a fost lovit cu "<<player.GetPHYSICALDAMAGE()<<" physical damage si  "<<player.GetMAGICALDAMAGE()<<" magical damage"<<endl<<endl;
-   if(_enemy.GetHEALTH()<=0)
+
+
+   if(player.GetHEALTH()<=0)
+    {
+        player.Defeat();
+        break;
+    }
+   else if(_enemy.GetHEALTH()<=0)
    {
 
        _enemy.Drop(player);
@@ -323,7 +205,7 @@ void Combat(Enemy _enemy) //+alti factori posibili care modifica damage-ul
 
     if(RandomNumber>player.GetEVASION())
     {
-    player.TakeDamage(_enemy.GetPHYSICALDAMAGE() , _enemy.GetMAGICALDAMAGE());
+    player.TakeDamage(_enemy.ReturnStats());
     ShowStatsBeforeCombat(_enemy);
     cout<<"Player-ul a fost lovit cu "<<_enemy.GetPHYSICALDAMAGE()<<" physical damage si "<<_enemy.GetMAGICALDAMAGE()<<" magical damage"<<endl<<endl;
     if(player.GetHEALTH()<=0)
@@ -331,6 +213,12 @@ void Combat(Enemy _enemy) //+alti factori posibili care modifica damage-ul
         player.Defeat();
         break;
     }
+   else if(_enemy.GetHEALTH()<=0)
+   {
+
+       _enemy.Drop(player);
+       break;
+   }
 
     }else
     {
@@ -346,16 +234,18 @@ void Combat(Enemy _enemy) //+alti factori posibili care modifica damage-ul
     }
 
 
+
+
     if(player.GetExperience()>=player.ExperienceLimit)
     {
-        LevelUp();
+        player.LevelUp(AllPerks , MainHandle);
 
 
 
     }
 
 
-   if(HandleInput("Doresti sa lupti cu inamicul din nou? (1-DA , 2-NU)")=="1")
+   if(MainHandle.InputHandler("Doresti sa lupti cu inamicul din nou? (1-DA , 2-NU)")=="1")
         goto Grind;
 
 
@@ -375,7 +265,7 @@ void Start()
    FullScreen();
    srand((unsigned) time(NULL)); //folosim srand pentru a nu genera de fiecare data aceleasi numere aleatorii
    InitializareDate();
-   Animation_handler.PlayAnimation(LogoAnimationIndex);
+  // Animation_handler.PlayAnimation(LogoAnimationIndex);
 
    PlaySound(TEXT("MainMusic.wav") , NULL , SND_FILENAME | SND_ASYNC | SND_LOOP);
    //Funcția PlaySound redă un sunet specificat de numele fișierului, resursa sau evenimentul de sistem dat.
@@ -392,7 +282,14 @@ void Start()
 int main()
 {
     Start();
-
+    //plot
+    //tag
+    //combat
+    //daca pierde goto tag
+    //plot2
+    //tag2
+    //combat
+    //daca pierde intreaba la ce tag urmeaza sa se intoarca pentru a efectua lupta(daca merge la un tag in care povestea a fost spusa , sari peste)
 
     Combat(enemy);
     system("cls");
@@ -401,6 +298,8 @@ int main()
     Combat(enemy);
     system("cls");
     system("pause");
+
+
 
 
 

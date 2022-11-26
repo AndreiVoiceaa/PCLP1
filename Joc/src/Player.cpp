@@ -1,5 +1,6 @@
 #include "Player.h"
 #include <windows.h>
+#include <winuser.h>
 #include <iostream>
 
 using namespace std;
@@ -21,17 +22,15 @@ Player::Player(){
    }
 
 
-   void Player :: TakeDamage(unsigned short int EnemyPhysicalDamage , unsigned short int EnemyMagicalDamage)
-   {
-       this->health-=EnemyMagicalDamage;
-       this->health-=EnemyPhysicalDamage;
 
-
-   }
 
    void Player::Defeat()
    {
-       system("exit");
+      cout<<endl<<"Ai pierdut!"<<endl;
+      system("pause");
+      PostMessage(GetConsoleWindow(), WM_CLOSE, 0, 0); //inchide consola
+
+
 
    }
 
@@ -68,4 +67,92 @@ Player::Player(){
 
 
    }
+
+
+   void Player :: LevelUp(list<Perk> &p , Handlers _MainHandle)
+{
+
+
+    int AdditionalXP=GetExperience()-ExperienceLimit;
+    AddLevel(1);
+    SetExperience(AdditionalXP);
+    ExperienceLimit=ExperienceLimit*2-ExperienceLimit/2;
+    cout<<"Ai crescut un nivel !! "<<endl<<"Nivel actual: "<<GetLevel()<<" , mai ai "<<ExperienceLimit<<" XP pana la urmatorul nivel."<<endl<<endl;
+
+
+
+    unsigned short int i=0;
+    unsigned short int pi=0;
+    unsigned short int ui=0;
+    list<Perk>::iterator it = p.begin();
+
+
+    for(it; it!=p.end(); ++it)
+    {
+
+        i++;
+        if(i<=GetLevel() && it->GetActiveState()==false)
+        {
+
+        if(pi==0)
+        pi=i;
+        else
+        ui=i;
+
+        cout<<it->GetName()<<": "<<it->GetDescription()<<endl<<endl;
+        }
+
+
+    }
+
+
+    if(pi<ui)
+    {
+
+
+    if(_MainHandle.InputHandler("Alege Perk-ul (1 sau 2)")=="1")
+            {
+
+             it = p.begin();
+              std::advance(it , pi-1);
+              AddPerk(*it);
+
+
+            }
+            else{
+                 it = p.begin();
+                std::advance(it , ui-1);
+                AddPerk(*it);
+            }
+
+
+
+    }else
+    {
+        if(pi!=0)
+        {
+
+
+              it = p.begin();
+              std::advance(it , pi-1);
+              AddPerk(*it);
+
+        }
+    }
+
+    it->SetActiveState(true);
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
 

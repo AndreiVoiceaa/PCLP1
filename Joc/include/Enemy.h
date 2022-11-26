@@ -11,7 +11,7 @@ class Enemy:public Stats
        Enemy();
        Enemy(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage , unsigned short int _MagicalDamage , unsigned short int _PhysicalArmor,
         unsigned short int _MagicalArmor, unsigned short int _Evasion , unsigned short int _Level , int _Coins , int _Experience , string _EnemyName);
-       void TakeDamage(unsigned short int PlayerPhysicalDamage, unsigned short int PlayerMagicalDamage);
+
        void Drop(Player &p);
        Item itemDroped;
        string GetName();
