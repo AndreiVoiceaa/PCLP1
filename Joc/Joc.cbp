@@ -39,6 +39,7 @@
 		</Linker>
 		<Unit filename="include/Animator.h" />
 		<Unit filename="include/Enemy.h" />
+		<Unit filename="include/Handlers.h" />
 		<Unit filename="include/Item.h" />
 		<Unit filename="include/Perk.h" />
 		<Unit filename="include/Player.h" />
@@ -46,6 +47,7 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Animator.cpp" />
 		<Unit filename="src/Enemy.cpp" />
+		<Unit filename="src/Handlers.cpp" />
 		<Unit filename="src/Item.cpp" />
 		<Unit filename="src/Perk.cpp" />
 		<Unit filename="src/Player.cpp" />

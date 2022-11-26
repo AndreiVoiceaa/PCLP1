@@ -3,11 +3,13 @@
 #include <list>
 #include "Perk.h"
 
+
 using namespace std;
 
 class Stats
 {
   public:
+
   void ShowStats();
   Stats();
   Stats(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage , unsigned short int _MagicalDamage , unsigned short int _PhysicalArmor,
@@ -37,6 +39,11 @@ class Stats
   short int GetHEALTH();
   void AddPerk(Perk perk);
   void ShowPerks();
+  void TakeDamage(Stats* Atacator);
+  void DrainHealth(unsigned short int PhysicalAmount , unsigned short int MagicalAmount);
+  Stats* ReturnStats();
+
+  list<Perk> perks;
 
 
 
@@ -52,7 +59,7 @@ class Stats
   unsigned short int Evasion;
   int Coins;
   int Experience;
-  list<Perk> perks;
+
 
 };
 

@@ -1,5 +1,9 @@
 #ifndef PLAYER_H
 #define PLAYER_H
+#include <list>
+#include <iterator>
+
+#include "Handlers.h"
 #include "Stats.h"
 #include "Item.h"
 #include "Perk.h"
@@ -15,12 +19,15 @@ class Player:public Stats
         unsigned short int _ItemNumber);
 
     Player();
-    void TakeDamage(unsigned short int EnemyPhysicalDamage , unsigned short int EnemyMagicalDamage);
+
+
     void Defeat();
     void ShowInventory();
     void IncrementItemNumber();
     unsigned short int GetItemNumber();
     void AddItem(string _Name , string _Description);
+    void LevelUp(list<Perk> &p , Handlers _MainHandle);
+
 
 
 
@@ -34,5 +41,6 @@ class Player:public Stats
 
 
 };
+
 
 #endif // PLAYER_H

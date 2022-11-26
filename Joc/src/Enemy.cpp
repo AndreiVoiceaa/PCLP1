@@ -14,12 +14,7 @@ Enemy::Enemy(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage 
 
    }
 
-   void Enemy:: TakeDamage(unsigned short int PlayerPhysicalDamage, unsigned short int PlayerMagicalDamage)
-   {
-       health-=PlayerMagicalDamage;
-       health-=PlayerPhysicalDamage;
 
-   }
 
    void Enemy :: Drop(Player &p)
    {
