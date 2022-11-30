@@ -3,7 +3,7 @@
 	<iostream>
 	<windows.h>
 
-1669461858 source:d:\proiectoff\joc\main.cpp
+1669827568 source:d:\proiectoff\joc\main.cpp
 	<iostream>
 	<windows.h>
 	<mmsystem.h>
@@ -25,21 +25,21 @@
 	<mmsystem.h>
 	<cstring>
 
-1669457690 d:\proiectoff\joc\include\stats.h
+1669826664 d:\proiectoff\joc\include\stats.h
 	<list>
 	"Perk.h"
 
-1669461803 source:d:\proiectoff\joc\src\stats.cpp
+1669827641 source:d:\proiectoff\joc\src\stats.cpp
 	"Stats.h"
 	<iostream>
 
-1669461850 source:d:\proiectoff\joc\src\player.cpp
+1669825938 source:d:\proiectoff\joc\src\player.cpp
 	"Player.h"
 	<windows.h>
 	<winuser.h>
 	<iostream>
 
-1669384578 d:\proiectoff\joc\include\player.h
+1669825999 d:\proiectoff\joc\include\player.h
 	<list>
 	<iterator>
 	"Handlers.h"
@@ -47,36 +47,38 @@
 	"Item.h"
 	"Perk.h"
 
-1669273618 source:d:\proiectoff\joc\src\item.cpp
+1669559149 source:d:\proiectoff\joc\src\item.cpp
 	"Item.h"
 
-1669273618 d:\proiectoff\joc\include\item.h
+1669559404 d:\proiectoff\joc\include\item.h
 	<iostream>
 
-1669381536 source:d:\proiectoff\joc\src\enemy.cpp
+1669559053 source:d:\proiectoff\joc\src\enemy.cpp
 	"Enemy.h"
 
-1669381496 d:\proiectoff\joc\include\enemy.h
+1669557807 d:\proiectoff\joc\include\enemy.h
 	"Item.h"
 	"Stats.h"
 	"Player.h"
 
-1669391814 source:d:\proiectoff\joc\src\perk.cpp
+1669559164 source:d:\proiectoff\joc\src\perk.cpp
 	"Perk.h"
 
-1669391814 d:\proiectoff\joc\include\perk.h
+1669559419 d:\proiectoff\joc\include\perk.h
 	<iostream>
 
-1669273618 source:d:\proiectoff\joc\src\animator.cpp
+1669559015 source:d:\proiectoff\joc\src\animator.cpp
 	"Animator.h"
 
-1669273618 d:\proiectoff\joc\include\animator.h
+1669559382 d:\proiectoff\joc\include\animator.h
 	<windows.h>
 	<iostream>
 
-1669313095 source:d:\proiectoff\joc\src\handlers.cpp
+1669822283 source:d:\proiectoff\joc\src\handlers.cpp
 	"Handlers.h"
 
-1669310440 d:\proiectoff\joc\include\handlers.h
+1669822345 d:\proiectoff\joc\include\handlers.h
 	<iostream>
+	<limits>
+	<cmath>
 

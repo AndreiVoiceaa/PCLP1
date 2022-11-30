@@ -17,34 +17,14 @@
 using namespace std;
 
 
-/*
- Item id list :
-
- 1. Sabia (Stats)
- 2.
- 3.
- .....
-
-
-*/
-
-
 Player player;
 Enemy enemy;
-
 Animator Animation_handler;
 Handlers MainHandle;
-
-
-
 list<Perk> AllPerks;
 
 const unsigned short int LogoAnimationIndex=1;
-
-
-
-
-
+int StatPrice = 1;
 
 unsigned short int RNG(unsigned short int minim,unsigned short int maxim)
 {
@@ -55,17 +35,10 @@ unsigned short int RNG(unsigned short int minim,unsigned short int maxim)
 }
 
 
-
-
 void InitializareDate()
 {
-    //initializare player
+
     player = Player(100 , 10 , 5 , 0 , 0 , 20 , 1 , 0 , 0 , 100 , 0);
-    //inamicul este initializat inainte de lupta
-    enemy = Enemy(80 , 2 , 10 ,0 ,0 , 19 , 2 , 10 , 24 , "Bear");
-
-    enemy.itemDroped = Item("Potir" , "Ofera 3 physical damage" , 100 , 0 , 3 , 0 , 0 , 0 , 0);
-
 
 
     //Perks
@@ -78,16 +51,10 @@ void InitializareDate()
     //player.AddPerk(*it);
     //std::advance(it,1);
 
-
-
-    //Items
-
-
-    //Stats
 }
 
 
-void Plot(int chapter)
+void Plot(unsigned short chapter)
 {
     /*
     if(chapter==1)
@@ -147,7 +114,7 @@ void FullScreen()
 }
 
 
-void Combat(Enemy _enemy) //+alti factori posibili care modifica damage-ul
+void Combat(Enemy _enemy)
 {
 
     Grind:
@@ -164,11 +131,9 @@ void Combat(Enemy _enemy) //+alti factori posibili care modifica damage-ul
    ///Player Turn
 
    unsigned short int RandomNumber = RNG(1,100);
-   cout<<RandomNumber<<endl;
 
    if(RandomNumber>_enemy.GetEVASION())
    {
-
 
    _enemy.TakeDamage(player.ReturnStats());
    ShowStatsBeforeCombat(_enemy);
@@ -201,7 +166,6 @@ void Combat(Enemy _enemy) //+alti factori posibili care modifica damage-ul
    ///Enemy Turn
 
     RandomNumber = RNG(1,100);
-    cout<<RandomNumber<<endl;
 
     if(RandomNumber>player.GetEVASION())
     {
@@ -245,13 +209,42 @@ void Combat(Enemy _enemy) //+alti factori posibili care modifica damage-ul
     }
 
 
-   if(MainHandle.InputHandler("Doresti sa lupti cu inamicul din nou? (1-DA , 2-NU)")=="1")
+
+ while(player.GetCoins()>=StatPrice)
+ {
+
+
+   if(MainHandle.InputHandler("Doresti sa folosesti banii castigati pentru a imbunatati player-ul? (1-DA , 2-NU)"  , 2)==1)
+   {
+
+
+
+       system("cls");
+
+       player.ShowStats();
+
+
+       cout<<"Pret pentru upgrade: "<<StatPrice<<endl;
+       cout<<"1. Maximum Health (+"<<player.BuyMaxHealthValue<<")"<<endl;
+       cout<<"2. Physical Damage (+"<<player.BuyPhysicalDamageValue<<")"<<endl;
+       cout<<"3. Magical Damage (+"<<player.BuyMagicalDamageValue<<")"<<endl;
+       cout<<"4. Physical Armor (+"<<player.BuyPhysicalArmorValue<<")"<<endl;
+       cout<<"5. Magical Armor (+"<<player.BuyMagicalArmorValue<<")"<<endl;
+
+      player.BuyStats(MainHandle.InputHandler("Ce caracteristica doresti sa imbunatatesti?" , 5));
+      player.SpendCoins(StatPrice);
+      StatPrice++;
+
+      system("cls");
+
+   }else break;
+
+ }
+
+system("cls");
+
+   if(MainHandle.InputHandler("Doresti sa lupti cu inamicul din nou? (1-DA , 2-NU)" , 2)==1)
         goto Grind;
-
-
-
-
-
 
 
 
@@ -263,18 +256,11 @@ void Start()
 
 
    FullScreen();
-   srand((unsigned) time(NULL)); //folosim srand pentru a nu genera de fiecare data aceleasi numere aleatorii
+   srand((unsigned) time(NULL));
    InitializareDate();
   // Animation_handler.PlayAnimation(LogoAnimationIndex);
 
    PlaySound(TEXT("MainMusic.wav") , NULL , SND_FILENAME | SND_ASYNC | SND_LOOP);
-   //Funcția PlaySound redă un sunet specificat de numele fișierului, resursa sau evenimentul de sistem dat.
-   //TEXT Identifică un șir ca Unicode atunci când UNICODE este definit de o directivă de preprocesor în timpul compilării.
-   //În caz contrar, macro-ul identifică un șir ca șir ANSI. Unicode este formatul standard de facto de codificare și interpretare
-   //a datelor binare în format text, având drept țel final să cuprindă toate caracterele din toate limbile globului.
-   //SND_FILENAME = Dacă fișierul nu poate fi găsit, funcția redă sunetul implicit, cu excepția cazului în care este setat indicatorul SND_NODEFAULT.
-   //SND_ASYNC = Sunetul este redat asincron și PlaySound revine imediat după începerea sunetului.
-
 
 }
 
@@ -291,6 +277,8 @@ int main()
     //combat
     //daca pierde intreaba la ce tag urmeaza sa se intoarca pentru a efectua lupta(daca merge la un tag in care povestea a fost spusa , sari peste)
 
+    enemy = Enemy(80 , 2 , 10 ,0 ,0 , 19 , 2 , 10 , 24 , "Bear");
+    enemy.itemDroped = Item("Potir" , "Ofera 3 physical damage" , 100 , 0 , 3 , 0 , 0 , 0 , 0);
     Combat(enemy);
     system("cls");
     enemy = Enemy(120 , 10 , 2 , 2 , 3 , 30 , 3 , 50 , 39 , "Giant Bear");
@@ -298,15 +286,6 @@ int main()
     Combat(enemy);
     system("cls");
     system("pause");
-
-
-
-
-
-
-
-
-
 
     return 0;
 }

@@ -35,7 +35,6 @@ Item::Item(string _Name , string _Description , unsigned short int _DropChance ,
 unsigned short int Item:: GetDROPCHANCE()
 {
 
-
     return DropChance;
 
 }
@@ -43,14 +42,12 @@ unsigned short int Item:: GetDROPCHANCE()
 void Item:: SetDROPEDSTATE(bool valoare)
 {
 
-
     Droped=valoare;
 
 }
 
 bool Item:: GetDROPEDSTATE()
 {
-
 
     return Droped;
 
@@ -65,7 +62,6 @@ void Item:: SetNAME(string valoare)
 
 string Item:: GetNAME()
 {
-
     return Name;
 }
 
@@ -78,14 +74,12 @@ void Item:: SetDESCRIPTION(string valoare)
 
 string Item:: GetDESCRIPTION()
 {
-
     return Description;
 }
 
 
 unsigned short int Item :: GetAddMaxHealth()
 {
-
 
     return AddMaxHealth;
 
@@ -94,14 +88,12 @@ unsigned short int Item :: GetAddMaxHealth()
 unsigned short int Item :: GetAddPhysicalDamage()
 {
 
-
     return AddPhysicalDamage;
 
 }
 
 unsigned short int Item :: GetAddMagicalDamage()
 {
-
 
     return AddMagicalDamage;
 
@@ -110,7 +102,6 @@ unsigned short int Item :: GetAddMagicalDamage()
 unsigned short int Item :: GetAddPhysicalArmor()
 {
 
-
     return AddPhysicalArmor;
 
 }
@@ -118,14 +109,12 @@ unsigned short int Item :: GetAddPhysicalArmor()
 unsigned short int Item :: GetAddMagicalArmor()
 {
 
-
     return AddMagicalArmor;
 
 }
 
 unsigned short int Item :: GetAddEvasion()
 {
-
 
     return AddEvasion;
 

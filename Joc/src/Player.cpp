@@ -30,8 +30,6 @@ Player::Player(){
       system("pause");
       PostMessage(GetConsoleWindow(), WM_CLOSE, 0, 0); //inchide consola
 
-
-
    }
 
    void Player::IncrementItemNumber()
@@ -44,7 +42,6 @@ Player::Player(){
    unsigned short int Player:: GetItemNumber()
    {
 
-
        return ItemNumber;
 
    }
@@ -54,8 +51,6 @@ Player::Player(){
        ItemNumber++;
        Inventory[ItemNumber].SetNAME(_Name);
        Inventory[ItemNumber].SetDESCRIPTION(_Description);
-
-
    }
 
    void Player::ShowInventory()
@@ -63,9 +58,6 @@ Player::Player(){
       cout<<"Inventory : "<<endl<<endl;
       for(unsigned short int i=1 ; i<=ItemNumber; i++)
           cout<<i<<". "<<Inventory[i].GetNAME()<<": "<<Inventory[i].GetDESCRIPTION()<<endl;
-
-
-
    }
 
 
@@ -110,7 +102,7 @@ Player::Player(){
     {
 
 
-    if(_MainHandle.InputHandler("Alege Perk-ul (1 sau 2)")=="1")
+    if(_MainHandle.InputHandler("Alege Perk-ul (1 sau 2)" , 2)==1)
             {
 
              it = p.begin();
@@ -143,16 +135,17 @@ Player::Player(){
     it->SetActiveState(true);
 
 
-
-
-
-
-
-
-
-
-
 }
 
 
+   void Player :: BuyStats(unsigned short int index)
+   {
+
+       if(index==1)AddStat(BuyMaxHealthValue ,0 ,0 ,0 ,0 ,0);
+       else if(index==2)AddStat(0 , BuyPhysicalDamageValue ,0 ,0 ,0 ,0);
+       else if (index==3)AddStat(0 , 0 , BuyMagicalDamageValue ,0 ,0 ,0);
+       else if (index==4)AddStat(0 , 0 , 0 , BuyPhysicalArmorValue ,0 ,0);
+       else if (index==5)AddStat(0 , 0 , 0 , 0 , BuyMagicalArmorValue ,0);
+
+   }
 

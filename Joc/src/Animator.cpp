@@ -9,10 +9,6 @@ Animator::Animator()
 void Animator :: PlayAnimation (unsigned short int AnimationIndex)
 {
     if(AnimationIndex==1)LogoAnimation();
-
-
-
-
 }
 
 
@@ -102,7 +98,7 @@ cout<<endl;
 
 Sleep(3000);
 system("cls");
-    }
+}
 
 
 
