@@ -23,15 +23,11 @@ Enemy::Enemy(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage 
      p.AddCoins(GetCoins());
      p.AddExperience(GetExperience());
 
-
-
      unsigned short int RandomNumber = 1 + (rand() % 100);
 
 
      if(RandomNumber<=itemDroped.GetDROPCHANCE())
      {
-
-
 
      if(itemDroped.GetDROPEDSTATE()==false)
      {
@@ -58,7 +54,6 @@ Enemy::Enemy(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage 
 
    string Enemy :: GetName()
    {
-
 
        return EnemyName;
 

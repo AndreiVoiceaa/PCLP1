@@ -2,7 +2,7 @@
 
 Handlers::Handlers()
 {
-    //ctor
+
 }
 
 void Handlers :: ErrorHandler( int ErrorNumber)
@@ -15,42 +15,49 @@ void Handlers :: ErrorHandler( int ErrorNumber)
 
     }
 
-
-
-     // system("cls");
-
-
 }
 
 
-string Handlers :: InputHandler(string Question)
+unsigned short int Handlers :: InputHandler(string Question , unsigned short int Number_of_Answers)
 {
 
 
+
+    string mesaj;
     cout<<Question<<endl<<endl;
+
+
     ReiaRaspuns:
-    try {
-    string Raspuns=" ";
-    cin>>Raspuns;
-    if(Raspuns=="1")
-        return Raspuns;
-    else if(Raspuns!="2")
+
+    getline(cin , mesaj);
+    string::const_iterator it = mesaj.begin();
+
+    if(*it=='0' || mesaj.size() == 0)
     {
-        throw (InputErrorNumber);
-    }
-
-    return Raspuns;
-
-    }
-    catch ( int MesajEroare) {
-
-    ErrorHandler(MesajEroare);
-    goto ReiaRaspuns;
+      ErrorHandler(InputErrorNumber);
+      goto ReiaRaspuns;
 
 
     }
 
+    for(it; it != mesaj.end(); ++it)
+      if(isdigit(*it)==0 )
+      {
+          ErrorHandler(InputErrorNumber);
+          goto ReiaRaspuns;
 
+
+      }
+
+    if(!(stoi(mesaj)>=1 && stoi(mesaj)<=Number_of_Answers))
+    {
+         ErrorHandler(InputErrorNumber);
+          goto ReiaRaspuns;
+
+    }
+
+
+    return stoi(mesaj);
 
 }
 

@@ -34,8 +34,6 @@ Stats::Stats(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage 
       Experience=_Experience;
       health=Maxhealth;
 
-
-
   }
 
   void Stats :: DrainHealth(unsigned short int PhysicalAmount , unsigned short int MagicalAmount)
@@ -44,21 +42,18 @@ Stats::Stats(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage 
       health=health-(PhysicalAmount+MagicalAmount);
 
 
-
   }
 
 
 
   unsigned short int Stats :: GetMAXHEALTH()
   {
-
       return Maxhealth;
   }
 
 
   short int Stats :: GetHEALTH()
   {
-
       return health;
   }
 
@@ -71,32 +66,26 @@ Stats::Stats(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage 
 
   unsigned short int Stats :: GetPHYSICALDAMAGE()
   {
-
       return PhysicalDamage;
   }
 
   unsigned short int Stats :: GetMAGICALDAMAGE()
   {
-
       return MagicalDamage;
   }
 
-
   unsigned short int Stats :: GetPHYSICALARMOR()
   {
-
       return PhysicalArmor;
   }
 
   unsigned short int Stats :: GetMAGICALARMOR()
   {
-
       return MagicalArmor;
   }
 
   unsigned short int Stats :: GetEVASION()
   {
-
       return Evasion;
   }
 
@@ -104,6 +93,13 @@ Stats::Stats(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage 
   {
 
       Coins+=valoare;
+
+  }
+
+  void Stats :: SpendCoins (int valoare)
+  {
+
+      Coins-=valoare;
 
   }
 
@@ -117,7 +113,6 @@ Stats::Stats(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage 
   void Stats :: SetExperience( int valoare)
   {
       Experience=valoare;
-
   }
 
   void Stats :: AddExperience(int valoare)
@@ -170,14 +165,12 @@ Stats::Stats(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage 
         void Stats :: AddPerk(Perk perk)
         {
             perks.push_back(perk);
-
-
         }
 
         void Stats :: ShowPerks()
         {
-           cout<<"Perks: "<<endl<<endl;
-            for(list<Perk>::iterator it = perks.begin(); it!=perks.end(); ++it)
+        cout<<"Perks: "<<endl<<endl;
+        for(list<Perk>::iterator it = perks.begin(); it!=perks.end(); ++it)
         cout<<it->GetName()<<": "<<it->GetDescription()<<endl;
         cout<<endl;
 
@@ -186,11 +179,8 @@ Stats::Stats(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage 
 
   void Stats::ShowStats()
   {
-      cout<<endl<<"Maxhealth: "<<Maxhealth<<endl<<"PhysicalDamage: "<<PhysicalDamage<<endl<<"MagicalDamage: "<<MagicalDamage<<endl<<"MagicalArmor: "
-      <<MagicalArmor<<endl<<"PhysicalArmor: "<<PhysicalArmor<<endl<<"Level : "<<Level<<endl<<"Coins: "<<Coins<<endl<<"Exp: "<<Experience<<endl;
-
-
-
+      cout<<endl<<"Maxhealth: "<<Maxhealth<<endl<<"PhysicalDamage: "<<PhysicalDamage<<endl<<"MagicalDamage: "<<MagicalDamage<<endl<<"PhysicalArmor: "
+      <<PhysicalArmor<<endl<<"MagicalArmor: "<<MagicalArmor<<endl<<"Evasion: "<<Evasion<<"%"<<endl<<"Level : "<<Level<<endl<<"Exp: "<<Experience<<endl<<"Coins: "<<Coins<<endl<<endl;
   }
 
 
@@ -199,7 +189,6 @@ Stats::Stats(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage 
    {
 
 
-       //calcul damage total
       unsigned short int TotalPhysicalDamage = Atacator->GetPHYSICALDAMAGE();
       unsigned short int TotalMagicalDamage = Atacator->GetMAGICALDAMAGE();
 
@@ -213,32 +202,20 @@ Stats::Stats(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage 
 
       //aparator perks
        for(list<Perk>::iterator it = perks.begin(); it!=perks.end(); ++it)
-         if(it->GetName()=="Mirror Force") // se aplica ultimul
+         if(it->GetName()=="Mirror Force")
         {
-            //aplica armura Atacatorului ca expresie in parametru
+
             Atacator->DrainHealth( TotalPhysicalDamage/2 , TotalMagicalDamage/2);
 
         }
 
-       //armor
-
-
-       //parcurege perkurile de atac ale inamicului
-       //parcurge perkurile de aprare ale player-ului
-
-       //mirror force scade si din viata inamicului acelasi procent
-       //radiance
-       //bleed
-
          health=health-(TotalPhysicalDamage + TotalMagicalDamage);
-
 
    }
 
 
    Stats* Stats :: ReturnStats()
    {
-
 
        return this;
 

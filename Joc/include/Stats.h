@@ -23,6 +23,7 @@ class Stats
   unsigned short int AddEvasion);
 
   void AddCoins( int valoare);
+  void SpendCoins (int valoare);
   void AddExperience( int valoare);
   void AddLevel(unsigned short int valoare);
   void RestoreHealth();
@@ -43,10 +44,8 @@ class Stats
   void DrainHealth(unsigned short int PhysicalAmount , unsigned short int MagicalAmount);
   Stats* ReturnStats();
 
+
   list<Perk> perks;
-
-
-
 
   protected:
   short int health;

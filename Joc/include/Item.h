@@ -10,7 +10,7 @@ class Item
 public:
     Item();
     Item(string _Name , string _Description , unsigned short int _DropChance ,unsigned short int _AddMaxHealth ,unsigned short int _AddPhysicalDamage ,unsigned short int _AddMagicalDamage ,unsigned short int _AddPhysicalArmor ,
-         unsigned short int _AddMagicalArmor ,unsigned short int _AddEvasion);
+    unsigned short int _AddMagicalArmor ,unsigned short int _AddEvasion);
     unsigned short int  GetDROPCHANCE();
     bool GetDROPEDSTATE();
     void SetDROPEDSTATE(bool valoare);

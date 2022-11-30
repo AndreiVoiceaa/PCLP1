@@ -19,9 +19,6 @@ class Perk
         void SetActiveState(bool state);
         bool GetActiveState();
 
-
-
-
     private:
         string Name;
         string Description;

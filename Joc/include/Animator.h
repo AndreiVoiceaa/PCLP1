@@ -12,8 +12,6 @@ class Animator
         void PlayAnimation (unsigned short int AnimationIndex);
         void LogoAnimation();
 
-
-
 };
 
 #endif // ANIMATOR_H

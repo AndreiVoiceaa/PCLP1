@@ -9,8 +9,6 @@
 #include "Perk.h"
 
 
-
-
 class Player:public Stats
 {
     public:
@@ -27,11 +25,16 @@ class Player:public Stats
     unsigned short int GetItemNumber();
     void AddItem(string _Name , string _Description);
     void LevelUp(list<Perk> &p , Handlers _MainHandle);
-
-
-
-
+    void BuyStats(unsigned short int index);
     int ExperienceLimit;
+
+
+    static constexpr unsigned short int BuyMaxHealthValue = 10;
+    static constexpr unsigned short int BuyPhysicalDamageValue = 1;
+    static constexpr unsigned short int BuyMagicalDamageValue = 1;
+    static constexpr unsigned short int BuyPhysicalArmorValue = 1;
+    static constexpr unsigned short int BuyMagicalArmorValue = 1;
+
 
     private:
         unsigned short int ItemNumber;
