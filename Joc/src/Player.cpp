@@ -30,6 +30,7 @@ Player::Player(){
       system("pause");
       PostMessage(GetConsoleWindow(), WM_CLOSE, 0, 0); //inchide consola
 
+
    }
 
    void Player::IncrementItemNumber()
@@ -138,8 +139,31 @@ Player::Player(){
 }
 
 
-   void Player :: BuyStats(unsigned short int index)
+void Player :: BuyStats(Handlers _MainHandle , int &_StatPrice)
+{
+
+    while(GetCoins()>=_StatPrice)
    {
+
+
+   if(_MainHandle.InputHandler("Doresti sa folosesti banii castigati pentru a imbunatati player-ul? (1-DA , 2-NU)"  , 2)==1)
+   {
+
+
+
+       system("cls");
+
+       ShowStats();
+
+
+       cout<<"Pret pentru upgrade: "<<_StatPrice<<endl;
+       cout<<"1. Maximum Health (+"<<BuyMaxHealthValue<<")"<<endl;
+       cout<<"2. Physical Damage (+"<<BuyPhysicalDamageValue<<")"<<endl;
+       cout<<"3. Magical Damage (+"<<BuyMagicalDamageValue<<")"<<endl;
+       cout<<"4. Physical Armor (+"<<BuyPhysicalArmorValue<<")"<<endl;
+       cout<<"5. Magical Armor (+"<<BuyMagicalArmorValue<<")"<<endl;
+
+      unsigned short int index = _MainHandle.InputHandler("Ce caracteristica doresti sa imbunatatesti?" , 5);
 
        if(index==1)AddStat(BuyMaxHealthValue ,0 ,0 ,0 ,0 ,0);
        else if(index==2)AddStat(0 , BuyPhysicalDamageValue ,0 ,0 ,0 ,0);
@@ -147,5 +171,14 @@ Player::Player(){
        else if (index==4)AddStat(0 , 0 , 0 , BuyPhysicalArmorValue ,0 ,0);
        else if (index==5)AddStat(0 , 0 , 0 , 0 , BuyMagicalArmorValue ,0);
 
-   }
+      SpendCoins(_StatPrice);
+      _StatPrice++;
+
+      system("cls");
+
+   }else break;
+
+ }
+
+}
 
