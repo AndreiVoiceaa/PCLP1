@@ -35,7 +35,7 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Linker>
-			<Add library="D:/Downloads/CodeBlocks/MinGW/x86_64-w64-mingw32/lib/libwinmm.a" />
+			<Add library="../../../../../Downloads/CodeBlocks/MinGW/x86_64-w64-mingw32/lib/libwinmm.a" />
 		</Linker>
 		<Unit filename="include/Animator.h" />
 		<Unit filename="include/Enemy.h" />

@@ -36,6 +36,7 @@ unsigned short int RNG(unsigned short int minim,unsigned short int maxim)
 
 void InitializareDate()
 {
+    system("color D");
 
     player = Player(100 , 10 , 0 , 0 , 0 , 0 , 1 , 0 , 0 , 100 , 0);
     Bear = Enemy(50 , 2 , 0 , 0 , 0 , 0 , 1 , 1 , 40 , "Bear");

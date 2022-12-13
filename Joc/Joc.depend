@@ -82,3 +82,76 @@
 	<limits>
 	<cmath>
 
+1670933209 source:c:\users\savaa\desktop\temp\facultate\proiect\joc\main.cpp
+	<iostream>
+	<windows.h>
+	<mmsystem.h>
+	<cstdlib>
+	<ctime>
+	<list>
+	<iterator>
+	"Stats.h"
+	"Player.h"
+	"Item.h"
+	"Enemy.h"
+	"Perk.h"
+	"Animator.h"
+	"Handlers.h"
+
+1670931844 c:\users\savaa\desktop\temp\facultate\proiect\joc\include\stats.h
+	<list>
+	"Perk.h"
+
+1670931844 c:\users\savaa\desktop\temp\facultate\proiect\joc\include\perk.h
+	<iostream>
+
+1670931844 c:\users\savaa\desktop\temp\facultate\proiect\joc\include\player.h
+	<list>
+	<iterator>
+	"Handlers.h"
+	"Stats.h"
+	"Item.h"
+	"Perk.h"
+
+1670931844 c:\users\savaa\desktop\temp\facultate\proiect\joc\include\handlers.h
+	<iostream>
+	<limits>
+	<cmath>
+
+1670931844 c:\users\savaa\desktop\temp\facultate\proiect\joc\include\item.h
+	<iostream>
+
+1670931844 c:\users\savaa\desktop\temp\facultate\proiect\joc\include\enemy.h
+	"Item.h"
+	"Stats.h"
+	"Player.h"
+
+1670931844 c:\users\savaa\desktop\temp\facultate\proiect\joc\include\animator.h
+	<windows.h>
+	<iostream>
+
+1670931844 source:c:\users\savaa\desktop\temp\facultate\proiect\joc\src\enemy.cpp
+	"Enemy.h"
+
+1670931844 source:c:\users\savaa\desktop\temp\facultate\proiect\joc\src\item.cpp
+	"Item.h"
+
+1670931844 source:c:\users\savaa\desktop\temp\facultate\proiect\joc\src\player.cpp
+	"Player.h"
+	<windows.h>
+	<winuser.h>
+	<iostream>
+
+1670931844 source:c:\users\savaa\desktop\temp\facultate\proiect\joc\src\stats.cpp
+	"Stats.h"
+	<iostream>
+
+1670931844 source:c:\users\savaa\desktop\temp\facultate\proiect\joc\src\animator.cpp
+	"Animator.h"
+
+1670931844 source:c:\users\savaa\desktop\temp\facultate\proiect\joc\src\handlers.cpp
+	"Handlers.h"
+
+1670931844 source:c:\users\savaa\desktop\temp\facultate\proiect\joc\src\perk.cpp
+	"Perk.h"
+
