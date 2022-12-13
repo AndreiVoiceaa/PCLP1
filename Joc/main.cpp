@@ -18,7 +18,7 @@ using namespace std;
 
 
 Player player;
-Enemy enemy;
+Enemy Bear , Giant_Bear;
 Animator Animation_handler;
 Handlers MainHandle;
 list<Perk> AllPerks;
@@ -29,7 +29,6 @@ int StatPrice = 1;
 unsigned short int RNG(unsigned short int minim,unsigned short int maxim)
 {
 
-
   return minim + (rand() % maxim);
 
 }
@@ -38,7 +37,11 @@ unsigned short int RNG(unsigned short int minim,unsigned short int maxim)
 void InitializareDate()
 {
 
-    player = Player(100 , 10 , 5 , 0 , 0 , 20 , 1 , 0 , 0 , 100 , 0);
+    player = Player(100 , 10 , 0 , 0 , 0 , 0 , 1 , 0 , 0 , 100 , 0);
+    Bear = Enemy(50 , 2 , 0 , 0 , 0 , 0 , 1 , 1 , 40 , "Bear");
+    Bear.itemDroped = Item("Potir" , "+2 Magical Damage , +1 Physical Armor , +1 Magical Armor , +1 Evasion" , 100 , 0 , 0 , 2 , 1 , 1 , 1);
+    Giant_Bear = Enemy(120 , 10 , 2 , 2 , 3 , 30 , 3 , 50 , 39 , "Giant Bear");
+    Giant_Bear.itemDroped = Item("Bear Fur" , "Gives 20 max health" , 50 , 20 , 0 , 0 , 0 , 0 , 0 );
 
 
     //Perks
@@ -209,43 +212,12 @@ void Combat(Enemy _enemy)
     }
 
 
-
- while(player.GetCoins()>=StatPrice)
- {
-
-
-   if(MainHandle.InputHandler("Doresti sa folosesti banii castigati pentru a imbunatati player-ul? (1-DA , 2-NU)"  , 2)==1)
-   {
-
-
-
-       system("cls");
-
-       player.ShowStats();
-
-
-       cout<<"Pret pentru upgrade: "<<StatPrice<<endl;
-       cout<<"1. Maximum Health (+"<<player.BuyMaxHealthValue<<")"<<endl;
-       cout<<"2. Physical Damage (+"<<player.BuyPhysicalDamageValue<<")"<<endl;
-       cout<<"3. Magical Damage (+"<<player.BuyMagicalDamageValue<<")"<<endl;
-       cout<<"4. Physical Armor (+"<<player.BuyPhysicalArmorValue<<")"<<endl;
-       cout<<"5. Magical Armor (+"<<player.BuyMagicalArmorValue<<")"<<endl;
-
-      player.BuyStats(MainHandle.InputHandler("Ce caracteristica doresti sa imbunatatesti?" , 5));
-      player.SpendCoins(StatPrice);
-      StatPrice++;
-
-      system("cls");
-
-   }else break;
-
- }
+player.BuyStats(MainHandle , StatPrice);
 
 system("cls");
 
    if(MainHandle.InputHandler("Doresti sa lupti cu inamicul din nou? (1-DA , 2-NU)" , 2)==1)
         goto Grind;
-
 
 
 }
@@ -268,24 +240,17 @@ void Start()
 int main()
 {
     Start();
-    //plot
-    //tag
-    //combat
-    //daca pierde goto tag
-    //plot2
-    //tag2
-    //combat
-    //daca pierde intreaba la ce tag urmeaza sa se intoarca pentru a efectua lupta(daca merge la un tag in care povestea a fost spusa , sari peste)
 
-    enemy = Enemy(80 , 2 , 10 ,0 ,0 , 19 , 2 , 10 , 24 , "Bear");
-    enemy.itemDroped = Item("Potir" , "Ofera 3 physical damage" , 100 , 0 , 3 , 0 , 0 , 0 , 0);
-    Combat(enemy);
-    system("cls");
-    enemy = Enemy(120 , 10 , 2 , 2 , 3 , 30 , 3 , 50 , 39 , "Giant Bear");
-    enemy.itemDroped = Item("Bear Fur" , "Gives 20 max health" , 50 , 20 , 0 , 0 , 0 , 0 , 0 );
-    Combat(enemy);
-    system("cls");
-    system("pause");
+    Introducere:
+    //Plot(1);
+
+    Capitol1:
+    //Plot(2);
+    Combat(Bear);
+
+    Capirol2:
+    //Plot(3);
+    Combat(Giant_Bear);
 
     return 0;
 }

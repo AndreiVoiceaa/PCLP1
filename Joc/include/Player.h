@@ -25,7 +25,7 @@ class Player:public Stats
     unsigned short int GetItemNumber();
     void AddItem(string _Name , string _Description);
     void LevelUp(list<Perk> &p , Handlers _MainHandle);
-    void BuyStats(unsigned short int index);
+    void BuyStats(Handlers _MainHandle , int &_StatPrice);
     int ExperienceLimit;
 
 
