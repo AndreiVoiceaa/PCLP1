@@ -13,35 +13,28 @@
 #include "Perk.h"
 #include "Animator.h"
 #include "Handlers.h"
+#include "Combat.h"
 
 using namespace std;
-
 
 Player player;
 Enemy Bear , Giant_Bear;
 Animator Animation_handler;
-Handlers MainHandle;
 list<Perk> AllPerks;
+HANDLE console_color = GetStdHandle(STD_OUTPUT_HANDLE);
+Combat CombatSystem;
 
 const unsigned short int LogoAnimationIndex=1;
-int StatPrice = 1;
-
-unsigned short int RNG(unsigned short int minim,unsigned short int maxim)
-{
-
-  return minim + (rand() % maxim);
-
-}
 
 
 void InitializareDate()
 {
     system("color D");
 
-    player = Player(100 , 10 , 0 , 0 , 0 , 0 , 1 , 0 , 0 , 100 , 0);
-    Bear = Enemy(50 , 2 , 0 , 0 , 0 , 0 , 1 , 1 , 40 , "Bear");
-    Bear.itemDroped = Item("Potir" , "+2 Magical Damage , +1 Physical Armor , +1 Magical Armor , +1 Evasion" , 100 , 0 , 0 , 2 , 1 , 1 , 1);
-    Giant_Bear = Enemy(120 , 10 , 2 , 2 , 3 , 30 , 3 , 50 , 39 , "Giant Bear");
+    player = Player(100 , 10 , 0 , 0 , 0 , 0 , 1 , 0 , 0 , "Player" , 100 , 0);
+    Bear = Enemy(50 , 2 , 0 , 0 , 0 , 0 , 1 , 1 , 45 , "Bear");
+    Bear.itemDroped = Item("Potirul Aventurierului Incepator" , "+2 Magical Damage , +1 Physical Armor , +1 Magical Armor , +1 Evasion" , 100 , 0 , 0 , 2 , 1 , 1 , 1);
+    Giant_Bear = Enemy(60 , 3 , 1 , 1 , 0 , 5 , 1 , 1 , 55 , "Giant Bear");
     Giant_Bear.itemDroped = Item("Bear Fur" , "Gives 20 max health" , 50 , 20 , 0 , 0 , 0 , 0 , 0 );
 
 
@@ -76,29 +69,6 @@ void Plot(unsigned short chapter)
 }
 
 
-void ShowStatsBeforeCombat(Enemy _enemy)
-{
- cout<<"                                                                                                        Player|"<<_enemy.GetName()<<" Health: "<<player.GetHEALTH()<<"|"<<_enemy.GetHEALTH()<<endl<<endl;
- cout<<"   Player|"<<_enemy.GetName()<<" Stats: "<<endl<<endl;
- cout<<"Maximum Health: "<<player.GetMAXHEALTH()<<"|"<<_enemy.GetMAXHEALTH()<<endl;
- cout<<"Physical Damage: "<<player.GetPHYSICALDAMAGE()<<"|"<<_enemy.GetPHYSICALDAMAGE()<<endl;
- cout<<"Magical Damage: "<<player.GetMAGICALDAMAGE()<<"|"<<_enemy.GetMAGICALDAMAGE()<<endl;
- cout<<"Physical Armor: "<<player.GetPHYSICALARMOR()<<"|"<<_enemy.GetPHYSICALARMOR()<<endl;
- cout<<"Magical Armor: "<<player.GetMAGICALARMOR()<<"|"<<_enemy.GetMAGICALARMOR()<<endl;
- cout<<"Evasion: "<<player.GetEVASION()<<"%|"<<_enemy.GetEVASION()<<"%"<<endl;
- cout<<"Level: "<<player.GetLevel()<<"|"<<_enemy.GetLevel()<<endl;
- cout<<"Experience: "<<player.GetExperience()<<endl;
- cout<<"Coins: "<<player.GetCoins()<<endl;
-
- cout<<endl;
- player.ShowInventory();
- cout<<endl;
- player.ShowPerks();
-
- cout<<"Combat Log: "<<endl<<endl;
-}
-
-
 void FullScreen()
 {
 
@@ -113,112 +83,6 @@ void FullScreen()
                                                                        //lParam un parametru (pe 32 biti). Ultimii 2 parametrii depind de tipul
                                                                        //mesajului si furnizeaza informatii suplimentare referitoare la mesaj.
 
-
-
-}
-
-
-void Combat(Enemy _enemy)
-{
-
-    Grind:
-
-        system("cls");
-        player.RestoreHealth();
-        _enemy.RestoreHealth();
-
-
-
-    while(player.GetHEALTH()>0 && _enemy.GetHEALTH()>0)
-    {
-
-   ///Player Turn
-
-   unsigned short int RandomNumber = RNG(1,100);
-
-   if(RandomNumber>_enemy.GetEVASION())
-   {
-
-   _enemy.TakeDamage(player.ReturnStats());
-   ShowStatsBeforeCombat(_enemy);
-   cout<<_enemy.GetName()<<" a fost lovit cu "<<player.GetPHYSICALDAMAGE()<<" physical damage si  "<<player.GetMAGICALDAMAGE()<<" magical damage"<<endl<<endl;
-
-
-   if(player.GetHEALTH()<=0)
-    {
-        player.Defeat();
-        break;
-    }
-   else if(_enemy.GetHEALTH()<=0)
-   {
-
-       _enemy.Drop(player);
-       break;
-   }
-
-
-   }else
-   {
-       ShowStatsBeforeCombat(_enemy);
-       cout<<_enemy.GetName()<<" s-a ferit de atac"<<endl<<endl;
-
-
-   }
-   system("pause");
-   system("cls");
-
-   ///Enemy Turn
-
-    RandomNumber = RNG(1,100);
-
-    if(RandomNumber>player.GetEVASION())
-    {
-    player.TakeDamage(_enemy.ReturnStats());
-    ShowStatsBeforeCombat(_enemy);
-    cout<<"Player-ul a fost lovit cu "<<_enemy.GetPHYSICALDAMAGE()<<" physical damage si "<<_enemy.GetMAGICALDAMAGE()<<" magical damage"<<endl<<endl;
-    if(player.GetHEALTH()<=0)
-    {
-        player.Defeat();
-        break;
-    }
-   else if(_enemy.GetHEALTH()<=0)
-   {
-
-       _enemy.Drop(player);
-       break;
-   }
-
-    }else
-    {
-     ShowStatsBeforeCombat(_enemy);
-     cout<<"Player-ul s-a ferit de atac"<<endl<<endl;
-
-    }
-     system("pause");
-     system("cls");
-
-
-
-    }
-
-
-
-
-    if(player.GetExperience()>=player.ExperienceLimit)
-    {
-        player.LevelUp(AllPerks , MainHandle);
-
-
-
-    }
-
-
-player.BuyStats(MainHandle , StatPrice);
-
-system("cls");
-
-   if(MainHandle.InputHandler("Doresti sa lupti cu inamicul din nou? (1-DA , 2-NU)" , 2)==1)
-        goto Grind;
 
 
 }
@@ -247,11 +111,11 @@ int main()
 
     Capitol1:
     //Plot(2);
-    Combat(Bear);
+    CombatSystem.Fight(player,Bear,AllPerks);
 
     Capirol2:
     //Plot(3);
-    Combat(Giant_Bear);
+    CombatSystem.Fight(player,Giant_Bear,AllPerks);
 
     return 0;
 }

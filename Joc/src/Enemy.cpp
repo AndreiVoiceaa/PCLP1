@@ -1,23 +1,21 @@
 #include "Enemy.h"
 
 
-
 Enemy::Enemy()
 {
-    EnemyName="inamic";
+
 }
 
 Enemy::Enemy(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage , unsigned short int _MagicalDamage , unsigned short int _PhysicalArmor,
-        unsigned short int _MagicalArmor, unsigned short int _Evasion , unsigned short int _Level , int _Coins , int _Experience , string _EnemyName)
-   :Stats(_Maxhealth , _PhysicalDamage , _MagicalDamage , _PhysicalArmor , _MagicalArmor , _Evasion ,  _Level ,  _Coins ,  _Experience ){
-    EnemyName=_EnemyName;
-
-   }
+        unsigned short int _MagicalArmor, unsigned short int _Evasion , unsigned short int _Level , int _Coins , int _Experience , string _Name)
+   :Stats(_Maxhealth , _PhysicalDamage , _MagicalDamage , _PhysicalArmor , _MagicalArmor , _Evasion ,  _Level ,  _Coins ,  _Experience , _Name){
 
 
+}
 
-   void Enemy :: Drop(Player &p)
-   {
+
+void Enemy :: Drop(Player &p)
+{
 
      system("cls");
      p.AddCoins(GetCoins());
@@ -29,19 +27,20 @@ Enemy::Enemy(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage 
      if(RandomNumber<=itemDroped.GetDROPCHANCE())
      {
 
-     if(itemDroped.GetDROPEDSTATE()==false)
-     {
-         cout<<"Ai primit: "<<itemDroped.GetNAME()<<endl<<endl;
-         cout<<"Descriere: "<<itemDroped.GetDESCRIPTION()<<endl<<endl<<"+ Coins: "<<GetCoins()<<" si "<<GetExperience()<<" XP"<<endl<<endl;
+        if(itemDroped.GetDROPEDSTATE()==false)
+        {
+            cout<<"Ai primit: "<<itemDroped.GetNAME()<<endl<<endl;
+            cout<<"Descriere: "<<itemDroped.GetDESCRIPTION()<<endl<<endl<<"+ Coins: "<<GetCoins()<<" si "<<GetExperience()<<" XP"<<endl<<endl;
 
-         p.AddItem(itemDroped.GetNAME() , itemDroped.GetDESCRIPTION());
-         p.AddStat(itemDroped.GetAddMaxHealth() , itemDroped.GetAddPhysicalDamage() , itemDroped.GetAddMagicalDamage() ,
+            p.AddItem(itemDroped.GetNAME() , itemDroped.GetDESCRIPTION());
+            p.AddStat(itemDroped.GetAddMaxHealth() , itemDroped.GetAddPhysicalDamage() , itemDroped.GetAddMagicalDamage() ,
                         itemDroped.GetAddPhysicalArmor() , itemDroped.GetAddMagicalArmor() , itemDroped.GetAddEvasion() );
-         itemDroped.SetDROPEDSTATE(true);
+            itemDroped.SetDROPEDSTATE(true);
 
 
 
-     } else cout<<"Ai obtinut deja item-ul acestui inamic!"<<endl<<endl<<"Dar ai primit: "<<GetCoins()<<" Coins si "<<GetExperience()<<" XP"<<endl<<endl;
+        }
+        else cout<<"Ai obtinut deja item-ul acestui inamic!"<<endl<<endl<<"Dar ai primit: "<<GetCoins()<<" Coins si "<<GetExperience()<<" XP"<<endl<<endl;
 
      }
      else
@@ -49,15 +48,11 @@ Enemy::Enemy(unsigned short int _Maxhealth , unsigned short int _PhysicalDamage 
          cout<<"Nu ai obtinut niciun item in urma luptei"<<endl<<endl<<"Dar ai primit: "<<GetCoins()<<" Coins si "<<GetExperience()<<" XP"<<endl<<endl;
 
      }
-   }
+
+}
 
 
-   string Enemy :: GetName()
-   {
 
-       return EnemyName;
-
-   }
 
 
 

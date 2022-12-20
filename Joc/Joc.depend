@@ -3,7 +3,7 @@
 	<iostream>
 	<windows.h>
 
-1670593659 source:d:\proiectoff\joc\main.cpp
+1671534703 source:d:\proiectoff\joc\main.cpp
 	<iostream>
 	<windows.h>
 	<mmsystem.h>
@@ -18,6 +18,7 @@
 	"Perk.h"
 	"Animator.h"
 	"Handlers.h"
+	"Combat.h"
 
 1668171831 source:c:\users\savaa\onedrive\desktop\proiect\joc\main.cpp
 	<iostream>
@@ -25,23 +26,24 @@
 	<mmsystem.h>
 	<cstring>
 
-1669828017 d:\proiectoff\joc\include\stats.h
+1671528205 d:\proiectoff\joc\include\stats.h
 	<list>
+	<iostream>
 	"Perk.h"
 
-1669828017 source:d:\proiectoff\joc\src\stats.cpp
+1671535065 source:d:\proiectoff\joc\src\stats.cpp
 	"Stats.h"
-	<iostream>
 
-1669892152 source:d:\proiectoff\joc\src\player.cpp
+1671535731 source:d:\proiectoff\joc\src\player.cpp
 	"Player.h"
+
+1671527963 d:\proiectoff\joc\include\player.h
+	<list>
+	<iterator>
 	<windows.h>
 	<winuser.h>
 	<iostream>
-
-1669889798 d:\proiectoff\joc\include\player.h
-	<list>
-	<iterator>
+	<string>
 	"Handlers.h"
 	"Stats.h"
 	"Item.h"
@@ -50,13 +52,14 @@
 1669828017 source:d:\proiectoff\joc\src\item.cpp
 	"Item.h"
 
-1669828017 d:\proiectoff\joc\include\item.h
+1671526713 d:\proiectoff\joc\include\item.h
 	<iostream>
 
-1669828017 source:d:\proiectoff\joc\src\enemy.cpp
+1671526174 source:d:\proiectoff\joc\src\enemy.cpp
 	"Enemy.h"
 
-1669557807 d:\proiectoff\joc\include\enemy.h
+1671526604 d:\proiectoff\joc\include\enemy.h
+	<string>
 	"Item.h"
 	"Stats.h"
 	"Player.h"
@@ -64,20 +67,20 @@
 1669828017 source:d:\proiectoff\joc\src\perk.cpp
 	"Perk.h"
 
-1669828017 d:\proiectoff\joc\include\perk.h
+1671527125 d:\proiectoff\joc\include\perk.h
 	<iostream>
 
-1669828017 source:d:\proiectoff\joc\src\animator.cpp
+1671526003 source:d:\proiectoff\joc\src\animator.cpp
 	"Animator.h"
 
-1669828017 d:\proiectoff\joc\include\animator.h
+1671525676 d:\proiectoff\joc\include\animator.h
 	<windows.h>
 	<iostream>
 
-1669828017 source:d:\proiectoff\joc\src\handlers.cpp
+1671526496 source:d:\proiectoff\joc\src\handlers.cpp
 	"Handlers.h"
 
-1669828017 d:\proiectoff\joc\include\handlers.h
+1671526634 d:\proiectoff\joc\include\handlers.h
 	<iostream>
 	<limits>
 	<cmath>
@@ -154,4 +157,16 @@
 
 1670931844 source:c:\users\savaa\desktop\temp\facultate\proiect\joc\src\perk.cpp
 	"Perk.h"
+
+1671535202 source:d:\proiectoff\joc\src\combat.cpp
+	"Combat.h"
+
+1671531965 d:\proiectoff\joc\include\combat.h
+	<iostream>
+	<list>
+	<iterator>
+	"Player.h"
+	"Enemy.h"
+	"Perk.h"
+	"Handlers.h"
 

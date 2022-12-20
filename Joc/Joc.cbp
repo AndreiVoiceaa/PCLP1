@@ -38,6 +38,7 @@
 			<Add library="../../../../../Downloads/CodeBlocks/MinGW/x86_64-w64-mingw32/lib/libwinmm.a" />
 		</Linker>
 		<Unit filename="include/Animator.h" />
+		<Unit filename="include/Combat.h" />
 		<Unit filename="include/Enemy.h" />
 		<Unit filename="include/Handlers.h" />
 		<Unit filename="include/Item.h" />
@@ -46,6 +47,7 @@
 		<Unit filename="include/Stats.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Animator.cpp" />
+		<Unit filename="src/Combat.cpp" />
 		<Unit filename="src/Enemy.cpp" />
 		<Unit filename="src/Handlers.cpp" />
 		<Unit filename="src/Item.cpp" />
