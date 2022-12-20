@@ -2,15 +2,159 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
+	<File name="src\Combat.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3021" topLine="57" />
+		</Cursor>
+		<Folding>
+			<Collapse line="3" />
+		</Folding>
+	</File>
+	<File name="src\Animator.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6405" topLine="0" />
+		</Cursor>
+		<Folding>
+			<Collapse line="3" />
+			<Collapse line="9" />
+		</Folding>
+	</File>
+	<File name="include\Perk.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="194" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\Combat.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="348" topLine="0" />
+		</Cursor>
+		<Folding>
+			<Collapse line="13" />
+		</Folding>
+	</File>
+	<File name="include\Handlers.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="298" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\Enemy.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="532" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\Handlers.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="928" topLine="0" />
+		</Cursor>
+		<Folding>
+			<Collapse line="3" />
+			<Collapse line="16" />
+		</Folding>
+	</File>
+	<File name="include\Player.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="734" topLine="0" />
+		</Cursor>
+		<Folding>
+			<Collapse line="15" />
+		</Folding>
+	</File>
+	<File name="src\Player.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3060" topLine="90" />
+		</Cursor>
+		<Folding>
+			<Collapse line="6" />
+			<Collapse line="10" />
+			<Collapse line="18" />
+			<Collapse line="37" />
+			<Collapse line="46" />
+			<Collapse line="51" />
+			<Collapse line="56" />
+			<Collapse line="63" />
+			<Collapse line="147" />
+		</Folding>
+	</File>
+	<File name="include\Animator.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="126" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\Stats.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="70" topLine="42" />
+		</Cursor>
+	</File>
+	<File name="main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="334" topLine="19" />
+		</Cursor>
+		<Folding>
+			<Collapse line="30" />
+			<Collapse line="54" />
+			<Collapse line="72" />
+			<Collapse line="91" />
+		</Folding>
+	</File>
+	<File name="src\Perk.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="386" topLine="0" />
+		</Cursor>
+		<Folding>
+			<Collapse line="4" />
+			<Collapse line="11" />
+			<Collapse line="18" />
+			<Collapse line="25" />
+		</Folding>
+	</File>
+	<File name="src\Stats.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4091" topLine="74" />
+		</Cursor>
+		<Folding>
+			<Collapse line="6" />
+			<Collapse line="23" />
+			<Collapse line="25" />
+			<Collapse line="41" />
+			<Collapse line="46" />
+			<Collapse line="51" />
+			<Collapse line="56" />
+			<Collapse line="61" />
+			<Collapse line="66" />
+			<Collapse line="71" />
+			<Collapse line="76" />
+			<Collapse line="81" />
+			<Collapse line="86" />
+			<Collapse line="91" />
+			<Collapse line="96" />
+			<Collapse line="101" />
+			<Collapse line="106" />
+			<Collapse line="111" />
+			<Collapse line="116" />
+			<Collapse line="121" />
+			<Collapse line="126" />
+			<Collapse line="131" />
+			<Collapse line="135" />
+			<Collapse line="141" />
+			<Collapse line="152" />
+			<Collapse line="157" />
+			<Collapse line="166" />
+			<Collapse line="204" />
+		</Folding>
+	</File>
+	<File name="include\Item.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="974" topLine="9" />
+		</Cursor>
+	</File>
 	<File name="src\Item.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1981" topLine="24" />
+			<Cursor1 position="998" topLine="3" />
 		</Cursor>
 		<Folding>
 			<Collapse line="5" />
 			<Collapse line="18" />
 			<Collapse line="20" />
-			<Collapse line="35" />
 			<Collapse line="42" />
 			<Collapse line="49" />
 			<Collapse line="56" />
@@ -25,150 +169,14 @@
 			<Collapse line="116" />
 		</Folding>
 	</File>
-	<File name="src\Enemy.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Enemy.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="818" topLine="0" />
-		</Cursor>
-		<Folding>
-			<Collapse line="5" />
-			<Collapse line="9" />
-			<Collapse line="11" />
-			<Collapse line="19" />
-			<Collapse line="55" />
-		</Folding>
-	</File>
-	<File name="src\Handlers.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="302" topLine="0" />
-		</Cursor>
-		<Folding>
-			<Collapse line="3" />
-			<Collapse line="8" />
-		</Folding>
-	</File>
-	<File name="include\Item.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="351" topLine="0" />
-		</Cursor>
-		<Folding>
-			<Collapse line="7" />
-		</Folding>
-	</File>
-	<File name="include\Player.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="894" topLine="5" />
-		</Cursor>
-	</File>
-	<File name="include\Enemy.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="463" topLine="0" />
-		</Cursor>
-		<Folding>
-			<Collapse line="8" />
-		</Folding>
-	</File>
-	<File name="src\Stats.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3666" topLine="81" />
-		</Cursor>
-		<Folding>
-			<Collapse line="6" />
-			<Collapse line="22" />
-			<Collapse line="24" />
-			<Collapse line="39" />
-			<Collapse line="49" />
-			<Collapse line="55" />
-			<Collapse line="60" />
-			<Collapse line="67" />
-			<Collapse line="72" />
-			<Collapse line="77" />
-			<Collapse line="82" />
-			<Collapse line="87" />
-			<Collapse line="106" />
-			<Collapse line="113" />
-			<Collapse line="118" />
-			<Collapse line="126" />
-			<Collapse line="133" />
-			<Collapse line="140" />
-			<Collapse line="146" />
-			<Collapse line="165" />
-			<Collapse line="170" />
-			<Collapse line="188" />
-			<Collapse line="217" />
-		</Folding>
-	</File>
-	<File name="include\Stats.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="729" topLine="13" />
-		</Cursor>
-	</File>
-	<File name="src\Player.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="943" topLine="9" />
-		</Cursor>
-		<Folding>
-			<Collapse line="8" />
-			<Collapse line="11" />
-			<Collapse line="17" />
-			<Collapse line="36" />
-			<Collapse line="43" />
-			<Collapse line="50" />
-			<Collapse line="57" />
-			<Collapse line="65" />
-			<Collapse line="142" />
-			<Collapse line="149" />
-		</Folding>
-	</File>
-	<File name="main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="812" topLine="21" />
-		</Cursor>
-		<Folding>
-			<Collapse line="29" />
-			<Collapse line="61" />
-			<Collapse line="79" />
-			<Collapse line="102" />
-			<Collapse line="121" />
-		</Folding>
-	</File>
-	<File name="src\Perk.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="386" topLine="0" />
+			<Cursor1 position="562" topLine="3" />
 		</Cursor>
 		<Folding>
 			<Collapse line="4" />
-			<Collapse line="11" />
-			<Collapse line="18" />
-			<Collapse line="25" />
-		</Folding>
-	</File>
-	<File name="include\Animator.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="258" topLine="0" />
-		</Cursor>
-		<Folding>
 			<Collapse line="8" />
-		</Folding>
-	</File>
-	<File name="src\Animator.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="176" topLine="6" />
-		</Cursor>
-		<Folding>
-			<Collapse line="3" />
-		</Folding>
-	</File>
-	<File name="include\Handlers.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="350" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="include\Perk.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="486" topLine="0" />
-		</Cursor>
-		<Folding>
-			<Collapse line="9" />
+			<Collapse line="10" />
 		</Folding>
 	</File>
 </CodeBlocks_layout_file>

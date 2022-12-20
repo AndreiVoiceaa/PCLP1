@@ -8,7 +8,6 @@ using namespace std;
 class Animator
 {
     public:
-        Animator();
         void PlayAnimation (unsigned short int AnimationIndex);
         void LogoAnimation();
 

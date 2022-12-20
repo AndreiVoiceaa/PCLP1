@@ -9,9 +9,10 @@ using namespace std;
 class Handlers
 {
     public:
-        Handlers();
+
     void ErrorHandler( int ErrorNumber);
     unsigned short int InputHandler(string Question , unsigned short int NumarRaspunsuri);
+
     const int InputErrorNumber=1;
 
 };
